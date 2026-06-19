@@ -1,0 +1,11 @@
+<!-- components/space-card/space-card.wxml -->
+<view class="space-card" bindtap="onTap" bindlongpress="onLongPress">
+  <view class="space-icon-circle">
+    <text class="space-emoji">{{emoji}}</text>
+  </view>
+  <view class="space-info">
+    <text class="space-name text-ellipsis">{{space.name}}</text>
+    <text class="space-count">{{space.item_count || 0}} 件物品</text>
+  </view>
+  <view class="space-arrow">›</view>
+</view>

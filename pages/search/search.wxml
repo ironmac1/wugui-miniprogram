@@ -1,0 +1,39 @@
+<!-- pages/search/search.wxml -->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索物品名称、品牌、备注" value="{{keyword}}" bindinput="onInput" bindconfirm="onSearch" focus="{{true}}" confirm-type="search" />
+      <view wx:if="{{keyword}}" class="clear-btn" bindtap="clearInput">✕</view>
+    </view>
+    <view class="cancel-btn" bindtap="{{keyword ? 'onSearch' : ''}}" data-action="search">搜索</view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view wx:if="{{hasSearched}}" class="result-area">
+    <view wx:if="{{results.length > 0}}">
+      <view class="result-count">找到 {{results.length}} 个结果</view>
+      <view class="result-list">
+        <item-card wx:for="{{results}}" wx:key="item_id" item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" show-space="{{true}}" space-name="{{spaceNames[item.space_id]}}" bind:tap="onItemTap" />
+      </view>
+    </view>
+    <empty-state wx:else icon="🔍" title="未找到相关物品" desc="换个关键词试试" />
+  </view>
+
+  <!-- 搜索历史 -->
+  <view wx:if="{{!hasSearched && recentKeywords.length > 0}}" class="recent-section">
+    <view class="recent-header">
+      <text class="recent-title">最近搜索</text>
+      <text class="recent-clear" bindtap="clearRecent">清除</text>
+    </view>
+    <view class="recent-tags">
+      <view wx:for="{{recentKeywords}}" wx:key="*this" class="recent-tag" data-keyword="{{item}}" bindtap="onRecentTap">{{item}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{!hasSearched && recentKeywords.length === 0}}" class="search-hint">
+    <text class="hint-icon">📦</text>
+    <text class="hint-text">输入物品名称开始搜索</text>
+  </view>
+</view>

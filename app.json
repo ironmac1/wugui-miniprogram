@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/spaces/spaces",
+    "pages/space-detail/space-detail",
+    "pages/space-edit/space-edit",
+    "pages/item-detail/item-detail",
+    "pages/item-edit/item-edit",
+    "pages/items/items",
+    "pages/search/search",
+    "pages/expired/expired",
+    "pages/settings/settings",
+    "pages/family/family"
+  ],
+  "window": {
+    "backgroundColor": "#FAF6F0",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#FAF6F0",
+    "navigationBarTitleText": "物归",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#8C8580",
+    "selectedColor": "#C0623E",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/tab/home.png",
+        "selectedIconPath": "assets/tab/home-active.png"
+      },
+      {
+        "pagePath": "pages/spaces/spaces",
+        "text": "空间",
+        "iconPath": "assets/tab/space.png",
+        "selectedIconPath": "assets/tab/space-active.png"
+      },
+      {
+        "pagePath": "pages/items/items",
+        "text": "物品",
+        "iconPath": "assets/tab/item.png",
+        "selectedIconPath": "assets/tab/item-active.png"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "我的",
+        "iconPath": "assets/tab/mine.png",
+        "selectedIconPath": "assets/tab/mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于物品管理"
+    }
+  }
+}

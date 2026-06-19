@@ -1,0 +1,123 @@
+/* pages/space-detail/space-detail.wxss */
+.space-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 32rpx 20rpx;
+}
+.space-header-left {
+  display: flex;
+  align-items: center;
+}
+.space-header-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+.space-header-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  display: block;
+}
+.space-header-count {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+}
+.edit-btn {
+  font-size: 26rpx;
+  color: var(--color-primary);
+  padding: 12rpx 28rpx;
+  border: 2rpx solid var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx 16rpx;
+}
+.sort-btn, .manage-btn {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: var(--color-text-2);
+  padding: 10rpx 20rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+.sort-arrow {
+  margin-left: 6rpx;
+  font-size: 22rpx;
+  transition: transform 0.2s;
+}
+.sort-arrow.up { transform: rotate(180deg); }
+
+.sort-dropdown {
+  margin: 0 32rpx 16rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 8rpx 0;
+  box-shadow: var(--shadow);
+}
+.sort-option {
+  padding: 24rpx 28rpx;
+  font-size: 28rpx;
+  color: var(--color-text-2);
+}
+.sort-option.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.item-list { padding: 0 32rpx; }
+.item-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.item-wrap.selected .item-flex { width: 100%; }
+.item-flex { flex: 1; }
+.check-circle {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  font-size: 22rpx;
+  color: #fff;
+}
+.check-circle.checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.manage-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  background: var(--color-card);
+  padding: 24rpx 32rpx;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 24rpx);
+  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.06);
+  z-index: 50;
+}
+.manage-action {
+  flex: 1;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}

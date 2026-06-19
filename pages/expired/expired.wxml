@@ -1,0 +1,61 @@
+<!-- pages/expired/expired.wxml -->
+<view class="container">
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'expiring' ? 'active' : ''}}" data-tab="expiring" bindtap="switchTab">
+      <text>即将过期</text>
+      <text wx:if="{{expiringItems.length > 0}}" class="tab-badge">{{expiringItems.length}}</text>
+    </view>
+    <view class="tab-item {{activeTab === 'expired' ? 'active' : ''}}" data-tab="expired" bindtap="switchTab">
+      <text>已过期</text>
+      <text wx:if="{{expiredItems.length > 0}}" class="tab-badge badge-danger">{{expiredItems.length}}</text>
+    </view>
+  </view>
+
+  <!-- 管理按钮 -->
+  <view class="action-bar">
+    <view class="manage-btn" bindtap="toggleManage">
+      <text>{{manageMode ? '完成' : '管理'}}</text>
+    </view>
+  </view>
+
+  <!-- 临期列表 -->
+  <view wx:if="{{activeTab === 'expiring'}}" class="item-area">
+    <view wx:if="{{expiringItems.length > 0}}" class="item-list">
+      <view wx:for="{{expiringItems}}" wx:key="item_id" class="item-wrap {{manageMode && selectedIds.indexOf(item.item_id) > -1 ? 'selected' : ''}}">
+        <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.item_id) > -1 ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.item_id}}">
+          <text wx:if="{{selectedIds.indexOf(item.item_id) > -1}}">✓</text>
+        </view>
+        <view class="item-flex">
+          <item-card item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" show-space="{{true}}" space-name="{{spaceNames[item.space_id]}}" bind:tap="onItemTap" />
+        </view>
+      </view>
+    </view>
+    <empty-state wx:else icon="✓" title="暂无临期物品" desc="一切就绪，安心生活" />
+  </view>
+
+  <!-- 过期列表 -->
+  <view wx:if="{{activeTab === 'expired'}}" class="item-area">
+    <view wx:if="{{expiredItems.length > 0}}" class="item-list">
+      <view wx:for="{{expiredItems}}" wx:key="item_id" class="item-wrap {{manageMode && selectedIds.indexOf(item.item_id) > -1 ? 'selected' : ''}}">
+        <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.item_id) > -1 ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.item_id}}">
+          <text wx:if="{{selectedIds.indexOf(item.item_id) > -1}}">✓</text>
+        </view>
+        <view class="item-flex">
+          <item-card item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" show-space="{{true}}" space-name="{{spaceNames[item.space_id]}}" bind:tap="onItemTap" />
+        </view>
+      </view>
+    </view>
+    <empty-state wx:else icon="✓" title="暂无过期物品" desc="没有过期物品，继续保持" />
+  </view>
+
+  <!-- 管理模式操作栏 -->
+  <view wx:if="{{manageMode}}" class="manage-bar">
+    <view class="manage-action" bindtap="selectAll">全选</view>
+    <view class="manage-action" data-type="consumed" bindtap="batchHandle">已消耗</view>
+    <view class="manage-action" data-type="discarded" bindtap="batchHandle">已丢弃</view>
+    <view class="manage-action text-danger" bindtap="batchDelete">删除</view>
+  </view>
+
+  <view style="height: 120rpx;"></view>
+</view>

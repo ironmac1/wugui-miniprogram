@@ -1,0 +1,47 @@
+/* components/space-card/space-card.wxss */
+.space-card {
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s;
+}
+.space-card:active { transform: scale(0.99); }
+
+.space-icon-circle {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: var(--radius);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+.space-emoji { font-size: 44rpx; }
+
+.space-info {
+  flex: 1;
+  min-width: 0;
+}
+.space-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 6rpx;
+}
+.space-count {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+}
+.space-arrow {
+  font-size: 40rpx;
+  color: var(--color-text-3);
+  flex-shrink: 0;
+  margin-left: 12rpx;
+}

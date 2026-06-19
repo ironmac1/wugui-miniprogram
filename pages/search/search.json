@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "empty-state": "/components/empty-state/empty-state",
+    "item-card": "/components/item-card/item-card"
+  },
+  "backgroundColor": "#FAF6F0"
+}

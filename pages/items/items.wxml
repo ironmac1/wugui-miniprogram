@@ -1,0 +1,80 @@
+<!-- pages/items/items.wxml -->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">全部物品</text>
+    <view class="header-actions">
+      <view class="header-btn" bindtap="goSearch">🔍</view>
+      <view class="header-btn" bindtap="toggleFilterPanel">筛选</view>
+    </view>
+  </view>
+
+  <!-- 操作栏 -->
+  <view class="action-bar">
+    <view class="sort-btn" bindtap="toggleSortPicker">
+      <text>{{sortLabel}}</text>
+      <text class="sort-arrow {{showSortPicker ? 'up' : ''}}">▾</text>
+    </view>
+    <view class="manage-btn" bindtap="toggleManage">
+      <text>{{manageMode ? '完成' : '管理'}}</text>
+    </view>
+  </view>
+
+  <!-- 排序下拉 -->
+  <view wx:if="{{showSortPicker}}" class="sort-dropdown fade-in">
+    <view wx:for="{{sortOptions}}" wx:key="value" class="sort-option {{sortBy === item.value ? 'active' : ''}}" data-value="{{item.value}}" bindtap="chooseSort">{{item.label}}</view>
+  </view>
+
+  <!-- 筛选面板 -->
+  <view wx:if="{{showFilterPanel}}" class="filter-panel fade-in">
+    <!-- 空间筛选 -->
+    <view class="filter-section">
+      <text class="filter-label">空间</text>
+      <view class="filter-tags">
+        <view class="filter-tag {{filterSpace === '' ? 'active' : ''}}" data-id="" bindtap="onFilterSpace">全部</view>
+        <view wx:for="{{spaces}}" wx:key="space_id" class="filter-tag {{filterSpace === item.space_id ? 'active' : ''}}" data-id="{{item.space_id}}" bindtap="onFilterSpace">{{item.name}}</view>
+      </view>
+    </view>
+    <!-- 分类筛选 -->
+    <view class="filter-section">
+      <text class="filter-label">分类</text>
+      <view class="filter-tags">
+        <view class="filter-tag {{filterCategory === '' ? 'active' : ''}}" data-id="" bindtap="onFilterCategory">全部</view>
+        <view wx:for="{{categories}}" wx:key="category_id" class="filter-tag {{filterCategory === item.category_id ? 'active' : ''}}" data-id="{{item.category_id}}" bindtap="onFilterCategory">{{item.name}}</view>
+      </view>
+    </view>
+    <!-- 过期状态筛选 -->
+    <view class="filter-section">
+      <text class="filter-label">过期状态</text>
+      <view class="filter-tags">
+        <view class="filter-tag {{filterExpire === '' ? 'active' : ''}}" data-value="" bindtap="onFilterExpire">全部</view>
+        <view class="filter-tag {{filterExpire === 'expiring' ? 'active' : ''}}" data-value="expiring" bindtap="onFilterExpire">临期</view>
+        <view class="filter-tag {{filterExpire === 'expired' ? 'active' : ''}}" data-value="expired" bindtap="onFilterExpire">已过期</view>
+        <view class="filter-tag {{filterExpire === 'none' ? 'active' : ''}}" data-value="none" bindtap="onFilterExpire">未设置</view>
+      </view>
+    </view>
+    <view class="filter-reset" bindtap="resetFilters">重置筛选</view>
+  </view>
+
+  <!-- 物品列表 -->
+  <view wx:if="{{items.length > 0}}" class="item-list">
+    <view wx:for="{{items}}" wx:key="item_id" class="item-wrap {{manageMode && selectedIds.indexOf(item.item_id) > -1 ? 'selected' : ''}}">
+      <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.item_id) > -1 ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.item_id}}">
+        <text wx:if="{{selectedIds.indexOf(item.item_id) > -1}}">✓</text>
+      </view>
+      <view class="item-flex">
+        <item-card item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" show-space="{{true}}" space-name="{{spaceNames[item.space_id]}}" bind:tap="onItemTap" />
+      </view>
+    </view>
+  </view>
+
+  <empty-state wx:else icon="📦" title="暂无物品" desc="点击右下角按钮添加物品" />
+
+  <!-- 管理模式操作栏 -->
+  <view wx:if="{{manageMode}}" class="manage-bar">
+    <view class="manage-action" bindtap="selectAll">全选</view>
+    <view class="manage-action" bindtap="batchMove">移动</view>
+    <view class="manage-action text-danger" bindtap="batchDelete">删除({{selectedIds.length}})</view>
+  </view>
+
+  <view class="tabbar-height"></view>
+</view>

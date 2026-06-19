@@ -1,0 +1,71 @@
+/* pages/spaces/spaces.wxss */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 32rpx 20rpx;
+}
+.page-title {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.5rpx;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+.manage-toggle {
+  font-size: 26rpx;
+  color: var(--color-text-2);
+  padding: 14rpx 28rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+.add-btn {
+  display: flex;
+  align-items: center;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14rpx 28rpx;
+  border-radius: var(--radius-full);
+  font-size: 26rpx;
+  font-weight: 600;
+}
+.add-btn:active { opacity: 0.85; }
+.add-icon {
+  font-size: 32rpx;
+  margin-right: 6rpx;
+  line-height: 1;
+}
+
+.space-list {
+  padding: 0 32rpx;
+}
+.space-item-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.space-item-wrap.selected .space-card {
+  background: var(--color-primary-bg);
+}
+.check-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  font-size: 24rpx;
+  color: #fff;
+}
+.check-circle.checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}

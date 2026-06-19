@@ -1,0 +1,104 @@
+<!-- pages/settings/settings.wxml -->
+<view class="container">
+
+  <!-- 用户信息 -->
+  <view class="profile-section">
+    <view class="avatar-circle">
+      <text class="avatar-emoji">👤</text>
+    </view>
+    <view class="profile-info">
+      <text class="profile-name">{{user.nickname || '微信用户'}}</text>
+      <text class="profile-family">{{family.family_name || '我的家'}}</text>
+    </view>
+    <view class="edit-nickname" bindtap="editNickname">编辑</view>
+  </view>
+
+  <!-- 数据统计 -->
+  <view class="stats-card">
+    <view class="stat-cell">
+      <text class="stat-num">{{totalSpaces}}</text>
+      <text class="stat-label">空间</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{totalItems}}</text>
+      <text class="stat-label">物品</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num text-warning">{{expiringCount}}</text>
+      <text class="stat-label">临期</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num text-danger">{{expiredCount}}</text>
+      <text class="stat-label">过期</text>
+    </view>
+  </view>
+
+  <!-- 提醒设置 -->
+  <view class="section-title">提醒设置</view>
+  <view class="settings-group">
+    <view class="setting-row">
+      <view class="setting-info">
+        <text class="setting-name">过期提醒</text>
+        <text class="setting-desc">临期/过期时推送通知</text>
+      </view>
+      <switch checked="{{config.enabled}}" color="#C0623E" bindchange="onReminderToggle" />
+    </view>
+
+    <view class="setting-row">
+      <view class="setting-info">
+        <text class="setting-name">提前提醒天数</text>
+        <text class="setting-desc">在过期前这些天数提醒你</text>
+      </view>
+    </view>
+    <view class="days-options">
+      <view wx:for="{{remindOptions}}" wx:key="value" class="day-chip {{config.advance_days.indexOf(item.value) > -1 ? 'active' : ''}}" data-value="{{item.value}}" bindtap="onAdvanceDaysChange">{{item.label}}</view>
+    </view>
+
+    <view class="setting-row">
+      <view class="setting-info">
+        <text class="setting-name">提醒时段</text>
+        <text class="setting-desc">09:00 - 21:00（避免夜间打扰）</text>
+      </view>
+    </view>
+
+    <view class="setting-row">
+      <view class="setting-info">
+        <text class="setting-name">每周汇总</text>
+        <text class="setting-desc">每周推送一次临期过期汇总</text>
+      </view>
+      <switch checked="{{config.weekly_summary}}" color="#C0623E" bindchange="onSummaryToggle" />
+    </view>
+  </view>
+
+  <!-- 家庭管理 -->
+  <view class="section-title">家庭</view>
+  <view class="settings-group">
+    <view class="setting-row setting-tap" bindtap="goFamily">
+      <view class="setting-info">
+        <text class="setting-name">家庭管理</text>
+        <text class="setting-desc">{{family.family_name}} · {{family.member_ids.length}}人</text>
+      </view>
+      <text class="setting-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="section-title">关于</view>
+  <view class="settings-group">
+    <view class="setting-row">
+      <view class="setting-info">
+        <text class="setting-name">版本</text>
+      </view>
+      <text class="setting-value">v{{version}}</text>
+    </view>
+    <view class="setting-row setting-tap" bindtap="clearData">
+      <view class="setting-info">
+        <text class="setting-name text-danger">清空数据</text>
+        <text class="setting-desc">删除所有空间和物品</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-text">物归 · 让家庭物品找得到、管得住、不忘过期</view>
+  <view class="tabbar-height"></view>
+</view>

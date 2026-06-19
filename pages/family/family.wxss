@@ -1,0 +1,223 @@
+/* pages/family/family.wxss */
+.family-header {
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  margin: 16rpx 32rpx 0;
+  border-radius: var(--radius-lg);
+  padding: 32rpx;
+  box-shadow: var(--shadow-sm);
+}
+.family-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: var(--radius);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-right: 24rpx;
+}
+.family-info { flex: 1; }
+.family-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.family-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.edit-icon { font-size: 28rpx; }
+.family-meta {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  margin-top: 6rpx;
+  display: block;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-3);
+  margin: 32rpx 32rpx 12rpx;
+}
+
+.permission-card {
+  background: var(--color-card);
+  margin: 0 32rpx;
+  border-radius: var(--radius-lg);
+  padding: 16rpx 28rpx;
+  box-shadow: var(--shadow-sm);
+}
+.perm-row {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+}
+.perm-icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.perm-icon.check {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.perm-icon.cross {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.perm-text {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+.member-list {
+  background: var(--color-card);
+  margin: 0 32rpx;
+  border-radius: var(--radius-lg);
+  padding: 12rpx 28rpx;
+  box-shadow: var(--shadow-sm);
+}
+.member-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.member-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-right: 20rpx;
+}
+.member-info { flex: 1; }
+.member-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+}
+.member-role {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+}
+.member-tag {
+  font-size: 24rpx;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 6rpx 20rpx;
+  border-radius: var(--radius-full);
+}
+
+.action-list {
+  background: var(--color-card);
+  margin: 0 32rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.action-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  border-bottom: 1rpx solid var(--color-border);
+}
+.action-row:last-child { border-bottom: none; }
+.action-row:active { background: var(--color-fill); }
+.action-icon { font-size: 32rpx; margin-right: 16rpx; }
+.action-text {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--color-text);
+}
+.action-row.danger .action-text { color: var(--color-danger); }
+.action-arrow {
+  font-size: 36rpx;
+  color: var(--color-text-3);
+}
+
+.hint-text {
+  margin: 32rpx;
+  padding: 24rpx;
+  background: var(--color-primary-bg);
+  border-radius: var(--radius);
+}
+.hint-text text {
+  font-size: 24rpx;
+  color: var(--color-text-2);
+  line-height: 1.6;
+}
+
+/* 邀请码弹窗 */
+.mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+}
+.invite-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-card);
+  border-radius: 32rpx;
+  padding: 40rpx;
+  width: 560rpx;
+  z-index: 201;
+}
+.invite-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 32rpx;
+}
+.invite-code-box {
+  background: var(--color-primary-bg);
+  border-radius: var(--radius);
+  padding: 40rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+.invite-code {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 12rpx;
+}
+.invite-desc {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 32rpx;
+}
+.invite-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+.invite-actions .btn { flex: 1; }
+.invite-close {
+  text-align: center;
+  font-size: 28rpx;
+  color: var(--color-text-3);
+  padding: 12rpx;
+}

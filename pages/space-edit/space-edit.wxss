@@ -1,0 +1,64 @@
+/* pages/space-edit/space-edit.wxss */
+.form-section {
+  padding: 32rpx;
+  background: var(--color-card);
+  margin-bottom: 16rpx;
+  position: relative;
+}
+.form-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+.form-input {
+  background: var(--color-fill);
+  border-radius: var(--radius);
+  padding: 24rpx 28rpx;
+  font-size: 30rpx;
+  color: var(--color-text);
+}
+.char-count {
+  position: absolute;
+  right: 48rpx;
+  bottom: 44rpx;
+  font-size: 22rpx;
+  color: var(--color-text-3);
+}
+
+.icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.icon-item {
+  width: calc((100% - 48rpx) / 4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  border-radius: var(--radius);
+  background: var(--color-fill);
+  border: 3rpx solid transparent;
+  transition: all 0.15s;
+}
+.icon-item.active {
+  background: var(--color-primary-bg);
+  border-color: var(--color-primary);
+}
+.icon-emoji {
+  font-size: 40rpx;
+  margin-bottom: 6rpx;
+}
+.icon-name {
+  font-size: 22rpx;
+  color: var(--color-text-2);
+}
+.icon-item.active .icon-name {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.form-footer {
+  padding: 48rpx 32rpx;
+}

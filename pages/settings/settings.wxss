@@ -1,0 +1,135 @@
+/* pages/settings/settings.wxss */
+.profile-section {
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  margin: 16rpx 32rpx 0;
+  border-radius: var(--radius-lg);
+  padding: 32rpx 28rpx;
+  box-shadow: var(--shadow-sm);
+}
+.avatar-circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+.avatar-emoji { font-size: 48rpx; }
+.profile-info { flex: 1; }
+.profile-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 6rpx;
+}
+.profile-family {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+}
+.edit-nickname {
+  font-size: 26rpx;
+  color: var(--color-primary);
+  padding: 10rpx 24rpx;
+  border: 2rpx solid var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.stats-card {
+  display: flex;
+  background: var(--color-card);
+  margin: 16rpx 32rpx 0;
+  border-radius: var(--radius-lg);
+  padding: 28rpx 0;
+  box-shadow: var(--shadow-sm);
+}
+.stat-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1rpx solid var(--color-border);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.stat-label {
+  font-size: 22rpx;
+  color: var(--color-text-3);
+  margin-top: 6rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-3);
+  margin: 32rpx 32rpx 12rpx;
+}
+.settings-group {
+  background: var(--color-card);
+  margin: 0 32rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx;
+  border-bottom: 1rpx solid var(--color-border);
+}
+.setting-row:last-child { border-bottom: none; }
+.setting-tap:active { background: var(--color-fill); }
+.setting-info { flex: 1; }
+.setting-name {
+  font-size: 30rpx;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 4rpx;
+}
+.setting-desc {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+}
+.setting-arrow {
+  font-size: 36rpx;
+  color: var(--color-text-3);
+}
+.setting-value {
+  font-size: 28rpx;
+  color: var(--color-text-3);
+}
+
+.days-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  padding: 0 28rpx 28rpx;
+}
+.day-chip {
+  padding: 12rpx 28rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-fill);
+  font-size: 26rpx;
+  color: var(--color-text-2);
+}
+.day-chip.active {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  padding: 48rpx 0 32rpx;
+}

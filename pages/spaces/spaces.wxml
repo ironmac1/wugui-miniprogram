@@ -1,0 +1,28 @@
+<!-- pages/spaces/spaces.wxml -->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">空间管理</text>
+    <view class="header-actions">
+      <view wx:if="{{spaces.length > 0}}" class="manage-toggle" bindtap="toggleManage">
+        <text>{{manageMode ? '完成' : '管理'}}</text>
+      </view>
+      <view class="add-btn" bindtap="goAddSpace">
+        <text class="add-icon">+</text>
+        <text>新建</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{spaces.length > 0}}" class="space-list">
+    <view wx:for="{{spaces}}" wx:key="space_id" class="space-item-wrap {{manageMode && selectedIds.indexOf(item.space_id) > -1 ? 'selected' : ''}}">
+      <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.space_id) > -1 ? 'checked' : ''}}" bindtap="toggleSelect" data-id="{{item.space_id}}">
+        <text wx:if="{{selectedIds.indexOf(item.space_id) > -1}}">✓</text>
+      </view>
+      <space-card space="{{item}}" bind:tap="onSpaceTap" bind:longpress="onSpaceLongPress" />
+    </view>
+  </view>
+
+  <empty-state wx:else icon="🏠" title="还没有空间" desc="创建客厅、厨房、卧室等空间，开始管理家庭物品" btn-text="创建第一个空间" bind:action="goAddSpace" />
+
+  <view class="tabbar-height"></view>
+</view>

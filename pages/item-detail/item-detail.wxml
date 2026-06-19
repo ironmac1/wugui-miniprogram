@@ -1,0 +1,112 @@
+<!-- pages/item-detail/item-detail.wxml -->
+<view class="container" wx:if="{{item}}">
+
+  <!-- 过期状态横幅 -->
+  <view wx:if="{{tag}}" class="status-banner {{tag.status}}">
+    <text class="banner-icon">{{tag.status === 'expired' ? '⚠️' : '⏰'}}</text>
+    <text class="banner-text">{{tag.text}}</text>
+    <view wx:if="{{tag.status !== 'handled'}}" class="banner-action" catchtap="showActions">处理</view>
+  </view>
+
+  <!-- 物品主信息卡 -->
+  <view class="detail-card">
+    <view class="detail-icon">
+      <text>{{catIcon}}</text>
+    </view>
+    <view class="detail-main">
+      <text class="detail-name">{{item.name}}</text>
+      <view class="detail-tags">
+        <text class="tag tag-default">{{catName}}</text>
+        <text wx:if="{{item.quantity > 1}}" class="tag tag-primary">×{{item.quantity}}</text>
+        <text wx:if="{{tag}}" class="tag {{tag.class}}">{{tag.text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 照片 -->
+  <view wx:if="{{photos.length > 0}}" class="photo-section">
+    <view class="section-label">照片</view>
+    <scroll-view scroll-x class="photo-scroll">
+      <view wx:for="{{photos}}" wx:key="*this" class="photo-item" data-index="{{index}}" bindtap="previewPhoto">
+        <image src="{{item.url}}" mode="aspectFill" class="photo-img" />
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 详细信息 -->
+  <view class="info-section">
+    <view class="section-label">物品信息</view>
+    <view class="info-list">
+      <view class="info-row">
+        <text class="info-key">所属空间</text>
+        <text class="info-val">{{space.name || '-'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-key">分类</text>
+        <text class="info-val">{{catName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-key">数量</text>
+        <text class="info-val">{{item.quantity}}</text>
+      </view>
+      <view wx:if="{{item.brand}}" class="info-row">
+        <text class="info-key">品牌</text>
+        <text class="info-val">{{item.brand}}</text>
+      </view>
+      <view wx:if="{{item.price > 0}}" class="info-row">
+        <text class="info-key">价格</text>
+        <text class="info-val">¥{{item.price}}</text>
+      </view>
+      <view wx:if="{{item.purchase_date}}" class="info-row">
+        <text class="info-key">购买日期</text>
+        <text class="info-val">{{item.purchase_date}}</text>
+      </view>
+      <view wx:if="{{item.expire_date}}" class="info-row">
+        <text class="info-key">过期日期</text>
+        <text class="info-val {{item.status === 'expired' ? 'text-danger' : (item.status === 'expiring_soon' ? 'text-warning' : '')}}">{{item.expire_date}}</text>
+      </view>
+      <view wx:if="{{item.remark}}" class="info-row">
+        <text class="info-key">备注</text>
+        <text class="info-val remark">{{item.remark}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 元信息 -->
+  <view class="meta-section">
+    <text class="meta-text">由 {{creatorName}} 创建 · {{item.created_at}}</text>
+    <text wx:if="{{item.updated_at !== item.created_at}}" class="meta-text">最近修改 · {{item.updated_at}}</text>
+  </view>
+
+  <view style="height: 160rpx;"></view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view wx:if="{{canEdit}}" class="bottom-action" bindtap="showActions">
+      <text>更多</text>
+    </view>
+    <view wx:if="{{canEdit}}" class="bottom-action edit-action" bindtap="goEdit">
+      <text>编辑</text>
+    </view>
+  </view>
+
+  <!-- 处理状态弹窗 -->
+  <view wx:if="{{showHandleSheet}}" class="mask" bindtap="closeHandleSheet"></view>
+  <view wx:if="{{showHandleSheet}}" class="handle-sheet slide-up">
+    <view class="handle-title">标记处理状态</view>
+    <view class="handle-option" data-type="consumed" bindtap="chooseHandle">
+      <text class="handle-icon">✓</text>
+      <text>已消耗</text>
+    </view>
+    <view class="handle-option" data-type="discarded" bindtap="chooseHandle">
+      <text class="handle-icon">🗑️</text>
+      <text>已丢弃</text>
+    </view>
+    <view class="handle-option" data-type="handled" bindtap="chooseHandle">
+      <text class="handle-icon">📦</text>
+      <text>已处理</text>
+    </view>
+    <view class="handle-cancel" bindtap="closeHandleSheet">取消</view>
+  </view>
+
+</view>

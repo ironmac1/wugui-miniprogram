@@ -1,0 +1,266 @@
+/* pages/index/index.wxss */
+.header {
+  padding: 24rpx 32rpx 0;
+}
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.greeting {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  display: block;
+  letter-spacing: -0.5rpx;
+}
+.date-text {
+  font-size: 26rpx;
+  color: var(--color-text-3);
+  margin-top: 8rpx;
+  display: block;
+}
+.search-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: var(--color-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+.search-icon { font-size: 32rpx; }
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 0;
+  margin-top: 28rpx;
+  box-shadow: var(--shadow-sm);
+}
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-num {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 22rpx;
+  color: var(--color-text-3);
+  margin-top: 8rpx;
+}
+.stat-divider {
+  width: 1rpx;
+  height: 56rpx;
+  background: var(--color-border);
+}
+
+/* 面板 */
+.panel {
+  margin: 24rpx 32rpx 0;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx;
+  box-shadow: var(--shadow-sm);
+}
+.expiring-panel { border-left: 6rpx solid var(--color-warning); }
+.expired-panel { border-left: 6rpx solid var(--color-danger); }
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.panel-title-wrap {
+  display: flex;
+  align-items: center;
+}
+.panel-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+}
+.dot-warning { background: var(--color-warning); }
+.dot-danger { background: var(--color-danger); }
+.panel-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.panel-count {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  margin-left: 12rpx;
+  background: var(--color-fill);
+  padding: 2rpx 14rpx;
+  border-radius: var(--radius-full);
+}
+.panel-action {
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+.panel-action.collapsed { transform: rotate(0); }
+.panel-body {
+  margin-top: 20rpx;
+}
+.view-all {
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--color-primary);
+  padding: 16rpx 0 4rpx;
+}
+
+/* 安心提示 */
+.safe-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24rpx 32rpx 0;
+  padding: 24rpx;
+  background: var(--color-success-bg);
+  border-radius: var(--radius-lg);
+}
+.safe-icon {
+  font-size: 32rpx;
+  color: var(--color-success);
+  font-weight: 700;
+  margin-right: 12rpx;
+}
+.safe-text {
+  font-size: 26rpx;
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+/* 空间区域 */
+.section {
+  margin-top: 40rpx;
+  padding: 0 32rpx;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.section-action {
+  font-size: 26rpx;
+  color: var(--color-primary);
+}
+
+.space-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+.space-tile {
+  width: calc((100% - 20rpx) / 2);
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 24rpx;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s;
+}
+.space-tile:active { transform: scale(0.98); }
+.tile-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+.tile-emoji { font-size: 36rpx; }
+.tile-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 4rpx;
+}
+.tile-count {
+  font-size: 22rpx;
+  color: var(--color-text-3);
+}
+
+/* 快速添加弹窗 */
+.mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+}
+.quick-add-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: var(--color-card);
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx;
+  z-index: 201;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 32rpx);
+}
+.qa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+.qa-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.qa-close {
+  font-size: 32rpx;
+  color: var(--color-text-3);
+  padding: 8rpx;
+}
+.qa-input {
+  background: var(--color-fill);
+  border-radius: var(--radius);
+  padding: 28rpx;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+.qa-space-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.qa-label {
+  font-size: 28rpx;
+  color: var(--color-text-2);
+}
+.qa-picker {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.qa-arrow {
+  margin-left: 8rpx;
+  color: var(--color-text-3);
+}
+.qa-hint {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  margin-bottom: 28rpx;
+}

@@ -1,0 +1,109 @@
+<!-- pages/item-edit/item-edit.wxml -->
+<view class="container">
+
+  <!-- 物品名称 -->
+  <view class="form-card">
+    <view class="form-label">物品名称 <text class="required">*</text></view>
+    <input class="form-input" placeholder="如：洗洁精、感冒药" value="{{name}}" bindinput="onNameInput" maxlength="50" />
+  </view>
+
+  <!-- 所属空间 -->
+  <view class="form-card">
+    <picker mode="selector" range="{{spaces}}" range-key="name" value="{{spaceIndex}}" bindchange="onSpaceChange">
+      <view class="picker-row">
+        <text class="form-label-inline">所属空间 <text class="required">*</text></text>
+        <view class="picker-value">
+          <text>{{spaces[spaceIndex].name}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 分类 -->
+  <view class="form-card">
+    <picker mode="selector" range="{{catPickerList}}" range-key="name" value="{{catIndex}}" bindchange="onCatChange">
+      <view class="picker-row">
+        <text class="form-label-inline">分类</text>
+        <view class="picker-value">
+          <text>{{catPickerList[catIndex].name}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 数量 & 品牌 -->
+  <view class="form-card">
+    <view class="form-row">
+      <view class="form-col">
+        <text class="form-label">数量</text>
+        <input class="form-input" type="number" value="{{quantity}}" bindinput="onQtyInput" bindblur="onQtyBlur" />
+      </view>
+      <view class="form-col">
+        <text class="form-label">品牌</text>
+        <input class="form-input" placeholder="选填" value="{{brand}}" bindinput="onBrandInput" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 价格 -->
+  <view class="form-card">
+    <view class="form-label">价格</view>
+    <view class="price-input-wrap">
+      <text class="price-prefix">¥</text>
+      <input class="form-input price-input" type="digit" placeholder="选填" value="{{price}}" bindinput="onPriceInput" />
+    </view>
+  </view>
+
+  <!-- 日期 -->
+  <view class="form-card">
+    <view class="date-row">
+      <view class="date-item">
+        <text class="form-label">购买日期</text>
+        <picker mode="date" value="{{purchaseDate}}" bindchange="onPurchaseDateChange">
+          <view class="date-value {{purchaseDate ? '' : 'placeholder'}}">{{purchaseDate || '选择日期'}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="date-row">
+      <view class="date-item">
+        <text class="form-label">过期日期</text>
+        <picker mode="date" value="{{expireDate || today}}" bindchange="onExpireDateChange">
+          <view class="date-value {{expireDate ? '' : 'placeholder'}}">{{expireDate || '选择日期'}}</view>
+        </picker>
+      </view>
+      <view wx:if="{{expireDate}}" class="clear-date" bindtap="clearExpireDate">清除</view>
+    </view>
+  </view>
+
+  <!-- 照片 -->
+  <view class="form-card">
+    <view class="form-label">照片</view>
+    <view class="photo-grid">
+      <view wx:for="{{photos}}" wx:key="*this" class="photo-cell">
+        <image src="{{item.url}}" mode="aspectFill" class="photo-img" data-index="{{index}}" bindtap="previewPhoto" />
+        <view class="photo-del" catchtap="removePhoto" data-index="{{index}}">✕</view>
+      </view>
+      <view wx:if="{{photos.length < 9}}" class="photo-add" bindtap="choosePhoto">
+        <text class="add-icon">+</text>
+        <text class="add-text">{{photos.length}}/9</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="form-card">
+    <view class="form-label">备注</view>
+    <textarea class="form-textarea" placeholder="补充信息，如存放位置、用途等" value="{{remark}}" bindinput="onRemarkInput" maxlength="200" />
+  </view>
+
+  <view style="height: 140rpx;"></view>
+
+  <!-- 保存按钮 -->
+  <view class="save-bar">
+    <button class="btn btn-primary btn-block btn-lg" bindtap="onSave">保存</button>
+  </view>
+
+</view>

@@ -1,0 +1,97 @@
+<!-- pages/family/family.wxml -->
+<view class="container">
+  <!-- 家庭信息 -->
+  <view class="family-header">
+    <view class="family-icon">🏠</view>
+    <view class="family-info">
+      <view class="family-name-row">
+        <text class="family-name">{{family.family_name}}</text>
+        <view wx:if="{{isAdmin}}" class="edit-icon" bindtap="editFamilyName">✏️</view>
+      </view>
+      <text class="family-meta">{{memberCount}} 位成员 · 你是{{isAdmin ? '管理员' : '成员'}}</text>
+    </view>
+  </view>
+
+  <!-- 权限说明 -->
+  <view class="section-title">你的权限</view>
+  <view class="permission-card">
+    <view class="perm-row">
+      <text class="perm-icon check">✓</text>
+      <text class="perm-text">查看所有空间和物品</text>
+    </view>
+    <view class="perm-row">
+      <text class="perm-icon check">✓</text>
+      <text class="perm-text">添加空间和物品</text>
+    </view>
+    <view class="perm-row">
+      <text class="perm-icon {{isAdmin ? 'check' : 'cross'}}">{{isAdmin ? '✓' : '✗'}}</text>
+      <text class="perm-text">编辑/删除他人创建的内容</text>
+    </view>
+    <view class="perm-row">
+      <text class="perm-icon {{isAdmin ? 'check' : 'cross'}}">{{isAdmin ? '✓' : '✗'}}</text>
+      <text class="perm-text">邀请和移除成员</text>
+    </view>
+    <view class="perm-row">
+      <text class="perm-icon {{isAdmin ? 'check' : 'cross'}}">{{isAdmin ? '✓' : '✗'}}</text>
+      <text class="perm-text">解散家庭</text>
+    </view>
+  </view>
+
+  <!-- 成员列表 -->
+  <view class="section-title">家庭成员</view>
+  <view class="member-list">
+    <view class="member-row">
+      <view class="member-avatar">{{user.nickname ? user.nickname[0] : '我'}}</view>
+      <view class="member-info">
+        <text class="member-name">{{user.nickname || '微信用户'}}</text>
+        <text class="member-role">{{isAdmin ? '管理员 · 创建者' : '成员'}}</text>
+      </view>
+      <text class="member-tag">你</text>
+    </view>
+  </view>
+
+  <!-- 操作 -->
+  <view wx:if="{{isAdmin}}" class="section-title">管理操作</view>
+  <view wx:if="{{isAdmin}}" class="action-list">
+    <view class="action-row" bindtap="generateInvite">
+      <text class="action-icon">📨</text>
+      <text class="action-text">邀请成员加入</text>
+      <text class="action-arrow">›</text>
+    </view>
+    <view class="action-row danger" bindtap="dissolveFamily">
+      <text class="action-icon">⚠️</text>
+      <text class="action-text">解散家庭</text>
+      <text class="action-arrow">›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{!isAdmin}}" class="section-title">成员操作</view>
+  <view wx:if="{{!isAdmin}}" class="action-list">
+    <view class="action-row danger" bindtap="leaveFamily">
+      <text class="action-icon">🚪</text>
+      <text class="action-text">退出家庭</text>
+      <text class="action-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="hint-text">
+    <text>💡 提示：当前为本地演示模式，家庭共享功能需接入云端服务后可用。</text>
+  </view>
+
+  <view style="height: 80rpx;"></view>
+</view>
+
+<!-- 邀请码弹窗 -->
+<view wx:if="{{showInviteModal}}" class="mask" bindtap="closeInvite"></view>
+<view wx:if="{{showInviteModal}}" class="invite-modal slide-up">
+  <view class="invite-title">邀请家人加入</view>
+  <view class="invite-code-box">
+    <text class="invite-code">{{inviteCode}}</text>
+  </view>
+  <view class="invite-desc">将邀请码分享给家人，或在微信群中直接分享小程序</view>
+  <view class="invite-actions">
+    <button class="btn btn-ghost" bindtap="copyCode">复制邀请码</button>
+    <button class="btn btn-primary" open-type="share">分享到微信</button>
+  </view>
+  <view class="invite-close" bindtap="closeInvite">关闭</view>
+</view>
