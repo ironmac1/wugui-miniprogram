@@ -2,6 +2,8 @@
 .space-card {
   display: flex;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 28rpx 24rpx;

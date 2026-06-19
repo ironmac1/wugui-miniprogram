@@ -167,43 +167,58 @@
   color: var(--color-primary);
 }
 
-/* 空间网格 — 去阴影，用细边框 */
+/* 空间网格 — 一列全宽 */
 .space-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16rpx;
+  flex-direction: column;
+  gap: 12rpx;
 }
 .space-tile {
-  width: calc((100% - 16rpx) / 2);
+  width: 100%;
+  box-sizing: border-box;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 28rpx 24rpx;
   border: 1rpx solid var(--color-border);
+  display: flex;
+  align-items: center;
   transition: transform 0.15s;
 }
-.space-tile:active { transform: scale(0.98); }
+.space-tile:active { transform: scale(0.99); }
 .tile-icon {
-  width: 64rpx;
-  height: 64rpx;
+  width: 72rpx;
+  height: 72rpx;
   border-radius: var(--radius);
   background: var(--color-primary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16rpx;
+  margin-bottom: 0;
+  margin-right: 20rpx;
+  flex-shrink: 0;
 }
-.tile-emoji { font-size: 32rpx; }
+.tile-emoji { font-size: 36rpx; }
 .tile-name {
-  font-size: 29rpx;
+  font-size: 30rpx;
   font-weight: 600;
   color: var(--color-text);
   display: block;
   margin-bottom: 4rpx;
   letter-spacing: 0.5rpx;
 }
+.tile-info {
+  flex: 1;
+  min-width: 0;
+}
 .tile-count {
-  font-size: 21rpx;
+  font-size: 23rpx;
   color: var(--color-text-3);
+}
+.tile-arrow {
+  font-size: 36rpx;
+  color: var(--color-text-3);
+  flex-shrink: 0;
+  margin-left: 12rpx;
 }
 
 /* 快速添加弹窗 */
