@@ -2,7 +2,7 @@
 .status-banner {
   display: flex;
   align-items: center;
-  margin: 24rpx 32rpx 0;
+  margin: 24rpx 36rpx 0;
   padding: 24rpx 28rpx;
   border-radius: var(--radius-lg);
 }
@@ -13,6 +13,7 @@
   flex: 1;
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
 }
 .status-banner.expired .banner-text { color: var(--color-danger); }
 .status-banner.expiring_soon .banner-text { color: var(--color-warning); }
@@ -27,11 +28,11 @@
 .detail-card {
   display: flex;
   align-items: center;
-  margin: 24rpx 32rpx 0;
+  margin: 24rpx 36rpx 0;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 32rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .detail-icon {
   width: 112rpx;
@@ -48,7 +49,8 @@
 .detail-main { flex: 1; min-width: 0; }
 .detail-name {
   font-size: 38rpx;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 1rpx;
   color: var(--color-text);
   display: block;
   margin-bottom: 12rpx;
@@ -60,11 +62,12 @@
 }
 
 .photo-section {
-  margin: 24rpx 32rpx 0;
+  margin: 24rpx 36rpx 0;
 }
 .section-label {
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text);
   margin-bottom: 16rpx;
 }
@@ -82,11 +85,11 @@
 }
 
 .info-section {
-  margin: 24rpx 32rpx 0;
+  margin: 24rpx 36rpx 0;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 28rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .info-list {}
 .info-row {
@@ -124,9 +127,9 @@
   left: 0; right: 0; bottom: 0;
   display: flex;
   background: var(--color-card);
-  padding: 20rpx 32rpx;
+  padding: 20rpx 36rpx;
   padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
-  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.06);
+  border-top: 1rpx solid var(--color-border);
 }
 .bottom-action {
   flex: 1;
@@ -165,6 +168,7 @@
 .handle-title {
   font-size: 30rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text-2);
   text-align: center;
   margin-bottom: 24rpx;

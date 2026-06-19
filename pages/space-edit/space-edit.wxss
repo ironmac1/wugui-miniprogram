@@ -1,15 +1,18 @@
 /* pages/space-edit/space-edit.wxss */
 .form-section {
-  padding: 32rpx;
+  padding: 32rpx 36rpx;
   background: var(--color-card);
-  margin-bottom: 16rpx;
+  margin: 16rpx 36rpx 0;
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
   position: relative;
 }
 .form-label {
-  font-size: 28rpx;
+  font-size: 27rpx;
   font-weight: 600;
   color: var(--color-text);
   margin-bottom: 20rpx;
+  letter-spacing: 0.5rpx;
 }
 .form-input {
   background: var(--color-fill);
@@ -39,7 +42,7 @@
   padding: 20rpx 0;
   border-radius: var(--radius);
   background: var(--color-fill);
-  border: 3rpx solid transparent;
+  border: 1rpx solid transparent;
   transition: all 0.15s;
 }
 .icon-item.active {
@@ -47,11 +50,11 @@
   border-color: var(--color-primary);
 }
 .icon-emoji {
-  font-size: 40rpx;
+  font-size: 38rpx;
   margin-bottom: 6rpx;
 }
 .icon-name {
-  font-size: 22rpx;
+  font-size: 21rpx;
   color: var(--color-text-2);
 }
 .icon-item.active .icon-name {
@@ -60,5 +63,5 @@
 }
 
 .form-footer {
-  padding: 48rpx 32rpx;
+  padding: 48rpx 36rpx;
 }

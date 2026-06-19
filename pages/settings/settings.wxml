@@ -41,7 +41,7 @@
         <text class="setting-name">过期提醒</text>
         <text class="setting-desc">临期/过期时推送通知</text>
       </view>
-      <switch checked="{{config.enabled}}" color="#C0623E" bindchange="onReminderToggle" />
+      <switch checked="{{config.enabled}}" color="#7C6A58" bindchange="onReminderToggle" />
     </view>
 
     <view class="setting-row">
@@ -66,7 +66,7 @@
         <text class="setting-name">每周汇总</text>
         <text class="setting-desc">每周推送一次临期过期汇总</text>
       </view>
-      <switch checked="{{config.weekly_summary}}" color="#C0623E" bindchange="onSummaryToggle" />
+      <switch checked="{{config.weekly_summary}}" color="#7C6A58" bindchange="onSummaryToggle" />
     </view>
   </view>
 

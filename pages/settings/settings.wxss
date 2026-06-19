@@ -3,10 +3,10 @@
   display: flex;
   align-items: center;
   background: var(--color-card);
-  margin: 16rpx 32rpx 0;
+  margin: 16rpx 36rpx 0;
   border-radius: var(--radius-lg);
   padding: 32rpx 28rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .avatar-circle {
   width: 100rpx;
@@ -22,7 +22,8 @@
 .profile-info { flex: 1; }
 .profile-name {
   font-size: 34rpx;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 1rpx;
   color: var(--color-text);
   display: block;
   margin-bottom: 6rpx;
@@ -35,17 +36,17 @@
   font-size: 26rpx;
   color: var(--color-primary);
   padding: 10rpx 24rpx;
-  border: 2rpx solid var(--color-primary);
+  border: 1rpx solid var(--color-primary);
   border-radius: var(--radius-full);
 }
 
 .stats-card {
   display: flex;
   background: var(--color-card);
-  margin: 16rpx 32rpx 0;
+  margin: 16rpx 36rpx 0;
   border-radius: var(--radius-lg);
   padding: 28rpx 0;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .stat-cell {
   flex: 1;
@@ -57,7 +58,7 @@
 .stat-cell:last-child { border-right: none; }
 .stat-num {
   font-size: 40rpx;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
 }
 .stat-label {
@@ -69,15 +70,16 @@
 .section-title {
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text-3);
-  margin: 32rpx 32rpx 12rpx;
+  margin: 32rpx 36rpx 12rpx;
 }
 .settings-group {
   background: var(--color-card);
-  margin: 0 32rpx;
+  margin: 0 36rpx;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .setting-row {
   display: flex;

@@ -5,18 +5,18 @@
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 24rpx;
-  margin-bottom: 16rpx;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.1s;
+  margin-bottom: 12rpx;
+  border: 1rpx solid var(--color-border);
+  transition: transform 0.15s;
 }
 .item-card:active { transform: scale(0.99); }
 .item-card.is-expired {
-  border-left: 6rpx solid var(--color-danger);
+  border-left: 4rpx solid var(--color-danger);
 }
 
 .item-icon {
-  width: 80rpx;
-  height: 80rpx;
+  width: 76rpx;
+  height: 76rpx;
   border-radius: var(--radius);
   background: var(--color-primary-bg);
   display: flex;
@@ -25,7 +25,7 @@
   flex-shrink: 0;
   margin-right: 20rpx;
 }
-.icon-emoji { font-size: 40rpx; }
+.icon-emoji { font-size: 36rpx; }
 
 .item-body {
   flex: 1;
@@ -38,20 +38,21 @@
   margin-bottom: 8rpx;
 }
 .item-name {
-  font-size: 30rpx;
+  font-size: 29rpx;
   font-weight: 600;
   color: var(--color-text);
   flex: 1;
   min-width: 0;
   margin-right: 12rpx;
+  letter-spacing: 0.5rpx;
 }
 .item-meta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 16rpx;
+  gap: 14rpx;
 }
 .meta-text {
-  font-size: 24rpx;
+  font-size: 23rpx;
   color: var(--color-text-3);
 }

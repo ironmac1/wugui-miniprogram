@@ -5,15 +5,15 @@
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 28rpx 24rpx;
-  margin-bottom: 16rpx;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.1s;
+  margin-bottom: 12rpx;
+  border: 1rpx solid var(--color-border);
+  transition: transform 0.15s;
 }
 .space-card:active { transform: scale(0.99); }
 
 .space-icon-circle {
-  width: 88rpx;
-  height: 88rpx;
+  width: 84rpx;
+  height: 84rpx;
   border-radius: var(--radius);
   background: var(--color-primary-bg);
   display: flex;
@@ -22,25 +22,26 @@
   flex-shrink: 0;
   margin-right: 24rpx;
 }
-.space-emoji { font-size: 44rpx; }
+.space-emoji { font-size: 40rpx; }
 
 .space-info {
   flex: 1;
   min-width: 0;
 }
 .space-name {
-  font-size: 32rpx;
+  font-size: 31rpx;
   font-weight: 600;
   color: var(--color-text);
   display: block;
   margin-bottom: 6rpx;
+  letter-spacing: 0.5rpx;
 }
 .space-count {
-  font-size: 24rpx;
+  font-size: 23rpx;
   color: var(--color-text-3);
 }
 .space-arrow {
-  font-size: 40rpx;
+  font-size: 36rpx;
   color: var(--color-text-3);
   flex-shrink: 0;
   margin-left: 12rpx;

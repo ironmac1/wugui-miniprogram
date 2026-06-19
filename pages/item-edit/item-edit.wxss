@@ -1,14 +1,15 @@
 /* pages/item-edit/item-edit.wxss */
 .form-card {
   background: var(--color-card);
-  margin: 16rpx 32rpx 0;
+  margin: 16rpx 36rpx 0;
   border-radius: var(--radius-lg);
   padding: 28rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .form-label {
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text);
   margin-bottom: 16rpx;
   display: block;
@@ -16,6 +17,7 @@
 .form-label-inline {
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text);
 }
 .required { color: var(--color-danger); }
@@ -101,6 +103,8 @@
   position: relative;
   width: 180rpx;
   height: 180rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius);
 }
 .photo-img {
   width: 100%;
@@ -156,10 +160,10 @@
 .save-bar {
   position: fixed;
   left: 0; right: 0; bottom: 0;
-  padding: 20rpx 32rpx;
+  padding: 20rpx 36rpx;
   padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
   background: var(--color-card);
-  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.06);
+  border-top: 1rpx solid var(--color-border);
 }
 
 /* 分类弹窗 */

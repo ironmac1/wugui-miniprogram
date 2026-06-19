@@ -3,10 +3,10 @@
   display: flex;
   align-items: center;
   background: var(--color-card);
-  margin: 16rpx 32rpx 0;
+  margin: 16rpx 36rpx 0;
   border-radius: var(--radius-lg);
   padding: 32rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .family-icon {
   width: 96rpx;
@@ -27,7 +27,8 @@
 }
 .family-name {
   font-size: 36rpx;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 1rpx;
   color: var(--color-text);
 }
 .edit-icon { font-size: 28rpx; }
@@ -41,16 +42,17 @@
 .section-title {
   font-size: 28rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text-3);
-  margin: 32rpx 32rpx 12rpx;
+  margin: 32rpx 36rpx 12rpx;
 }
 
 .permission-card {
   background: var(--color-card);
-  margin: 0 32rpx;
+  margin: 0 36rpx;
   border-radius: var(--radius-lg);
   padding: 16rpx 28rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .perm-row {
   display: flex;
@@ -83,10 +85,10 @@
 
 .member-list {
   background: var(--color-card);
-  margin: 0 32rpx;
+  margin: 0 36rpx;
   border-radius: var(--radius-lg);
   padding: 12rpx 28rpx;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .member-row {
   display: flex;
@@ -110,6 +112,7 @@
 .member-name {
   font-size: 30rpx;
   font-weight: 600;
+  letter-spacing: 0.5rpx;
   color: var(--color-text);
   display: block;
 }
@@ -127,10 +130,10 @@
 
 .action-list {
   background: var(--color-card);
-  margin: 0 32rpx;
+  margin: 0 36rpx;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .action-row {
   display: flex;
@@ -153,7 +156,7 @@
 }
 
 .hint-text {
-  margin: 32rpx;
+  margin: 32rpx 36rpx;
   padding: 24rpx;
   background: var(--color-primary-bg);
   border-radius: var(--radius);
@@ -184,7 +187,8 @@
 }
 .invite-title {
   font-size: 34rpx;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 1rpx;
   text-align: center;
   color: var(--color-text);
   margin-bottom: 32rpx;
@@ -198,7 +202,7 @@
 }
 .invite-code {
   font-size: 64rpx;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-primary);
   letter-spacing: 12rpx;
 }

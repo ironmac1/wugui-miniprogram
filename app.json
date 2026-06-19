@@ -13,16 +13,16 @@
     "pages/family/family"
   ],
   "window": {
-    "backgroundColor": "#FAF6F0",
+    "backgroundColor": "#F5F2ED",
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#FAF6F0",
+    "navigationBarBackgroundColor": "#F5F2ED",
     "navigationBarTitleText": "物归",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false
   },
   "tabBar": {
-    "color": "#8C8580",
-    "selectedColor": "#C0623E",
+    "color": "#ADA59B",
+    "selectedColor": "#7C6A58",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "white",
     "list": [

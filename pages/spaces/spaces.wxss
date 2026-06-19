@@ -3,13 +3,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx 32rpx 20rpx;
+  padding: 24rpx 36rpx 20rpx;
 }
 .page-title {
   font-size: 42rpx;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
-  letter-spacing: -0.5rpx;
+  letter-spacing: 1rpx;
 }
 .header-actions {
   display: flex;
@@ -22,7 +22,7 @@
   padding: 14rpx 28rpx;
   background: var(--color-card);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .add-btn {
   display: flex;
@@ -32,7 +32,8 @@
   padding: 14rpx 28rpx;
   border-radius: var(--radius-full);
   font-size: 26rpx;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
 }
 .add-btn:active { opacity: 0.85; }
 .add-icon {
@@ -42,7 +43,7 @@
 }
 
 .space-list {
-  padding: 0 32rpx;
+  padding: 0 36rpx;
 }
 .space-item-wrap {
   display: flex;
@@ -51,12 +52,13 @@
 }
 .space-item-wrap.selected .space-card {
   background: var(--color-primary-bg);
+  border-color: var(--color-primary);
 }
 .check-circle {
   width: 44rpx;
   height: 44rpx;
   border-radius: 50%;
-  border: 3rpx solid var(--color-border);
+  border: 1rpx solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;

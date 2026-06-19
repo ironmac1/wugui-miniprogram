@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx 32rpx 20rpx;
+  padding: 24rpx 36rpx 20rpx;
 }
 .space-header-left {
   display: flex;
@@ -12,7 +12,7 @@
 .space-header-icon {
   width: 80rpx;
   height: 80rpx;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background: var(--color-primary-bg);
   display: flex;
   align-items: center;
@@ -22,8 +22,9 @@
 }
 .space-header-name {
   font-size: 36rpx;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
+  letter-spacing: 0.5rpx;
   display: block;
 }
 .space-header-count {
@@ -34,15 +35,17 @@
   font-size: 26rpx;
   color: var(--color-primary);
   padding: 12rpx 28rpx;
-  border: 2rpx solid var(--color-primary);
+  border: 1rpx solid var(--color-primary);
   border-radius: var(--radius-full);
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
 }
 
 .action-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32rpx 16rpx;
+  padding: 0 36rpx 16rpx;
 }
 .sort-btn, .manage-btn {
   display: flex;
@@ -52,7 +55,7 @@
   padding: 10rpx 20rpx;
   background: var(--color-card);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  border: 1rpx solid var(--color-border);
 }
 .sort-arrow {
   margin-left: 6rpx;
@@ -62,11 +65,11 @@
 .sort-arrow.up { transform: rotate(180deg); }
 
 .sort-dropdown {
-  margin: 0 32rpx 16rpx;
+  margin: 0 36rpx 16rpx;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 8rpx 0;
-  box-shadow: var(--shadow);
+  border: 1rpx solid var(--color-border);
 }
 .sort-option {
   padding: 24rpx 28rpx;
@@ -78,7 +81,7 @@
   font-weight: 600;
 }
 
-.item-list { padding: 0 32rpx; }
+.item-list { padding: 0 36rpx; }
 .item-wrap {
   display: flex;
   align-items: center;
@@ -90,7 +93,7 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  border: 3rpx solid var(--color-border);
+  border: 1rpx solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,15 +112,16 @@
   left: 0; right: 0; bottom: 0;
   display: flex;
   background: var(--color-card);
-  padding: 24rpx 32rpx;
+  padding: 24rpx 36rpx;
   padding-bottom: calc(env(safe-area-inset-bottom) + 24rpx);
-  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.06);
+  border-top: 1rpx solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   z-index: 50;
 }
 .manage-action {
   flex: 1;
   text-align: center;
   font-size: 28rpx;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text);
 }

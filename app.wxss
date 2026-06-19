@@ -1,54 +1,56 @@
 /* ============================================================
-   物归 · 全局样式系统
-   设计理念：温暖、有序的家居工具
-   主色：陶土橙 — 传达"家"的温度
-   背景：暖米色 — 柔和不刺眼
+   物归 · 全局设计系统 v2
+   设计方向：暖调极简 · 高级家居感
+   灵感：Muji / Kinfolk / 日式侘寂
+   核心：温润中性色为底，低饱和暖褐为魂，留白为韵
    ============================================================ */
 
 page {
-  /* —— 色彩系统 —— */
-  --color-primary: #C0623E;          /* 陶土橙 · 品牌主色 */
-  --color-primary-dark: #A85230;     /* 深陶土 · 按压态 */
-  --color-primary-light: #F4DDD0;    /* 浅陶土 · 背景/底纹 */
-  --color-primary-bg: #FBF1EB;       /* 极浅陶土 · 卡片底纹 */
+  /* —— 主色系：温润暖褐 —— */
+  --color-primary: #7C6A58;          /* 暖褐 · 品牌主色，像原木家具 */
+  --color-primary-dark: #6B5A48;     /* 深暖褐 · 按压态 */
+  --color-primary-light: #E8E0D6;    /* 浅暖褐 · 底纹 */
+  --color-primary-bg: #F2EDE6;       /* 极浅暖褐 · 卡片底纹 */
 
-  --color-bg: #FAF6F0;               /* 暖米色 · 页面背景 */
-  --color-card: #FFFFFF;             /* 纯白 · 卡片 */
-  --color-text: #2D2A26;            /* 深炭灰 · 主文字 */
-  --color-text-2: #6B655E;          /* 中灰 · 次级文字 */
-  --color-text-3: #A8A29A;          /* 浅灰 · 辅助文字 */
-  --color-border: #EDE7DE;          /* 暖灰 · 分割线/边框 */
-  --color-fill: #F5F0E8;            /* 填充色 · 输入框底 */
+  /* —— 中性色：暖灰系（带微暖调） —— */
+  --color-bg: #F5F2ED;               /* 暖麻白 · 页面背景，像亚麻布 */
+  --color-card: #FFFFFF;             /* 纯白 · 卡片，干净利落 */
+  --color-text: #2B2825;            /* 暖墨黑 · 主文字 */
+  --color-text-2: #7A736A;          /* 暖中灰 · 次级文字 */
+  --color-text-3: #ADA59B;          /* 暖浅灰 · 辅助文字 */
+  --color-border: #EAE4DB;          /* 暖灰 · 分割线，极淡 */
+  --color-fill: #F0EBE3;            /* 暖填充 · 输入框底 */
 
-  --color-warning: #E8943A;         /* 琥珀 · 临期提醒 */
-  --color-warning-bg: #FDF3E4;      /* 临期背景 */
-  --color-danger: #D9534F;          /* 珊瑚红 · 过期/删除 */
-  --color-danger-bg: #FBEAEA;       /* 过期背景 */
-  --color-success: #6B8E4E;         /* 橄榄绿 · 成功/正常 */
-  --color-success-bg: #EEF4E8;      /* 成功背景 */
-  --color-info: #5B89B5;            /* 雾蓝 · 信息 */
+  /* —— 语义色：低饱和度，不刺眼 —— */
+  --color-warning: #B8893E;         /* 暖琥珀 · 临期 */
+  --color-warning-bg: #F8F0E3;      /* 临期背景 */
+  --color-danger: #B0654A;          /* 赤陶 · 过期/删除 */
+  --color-danger-bg: #F6EBE6;       /* 过期背景 */
+  --color-success: #6B8268;         /* 苔藓绿 · 成功/正常 */
+  --color-success-bg: #EBF0E9;      /* 成功背景 */
+  --color-info: #6B7E8A;            /* 雾岩蓝 · 信息 */
 
-  /* —— 圆角 —— */
-  --radius-sm: 8rpx;
-  --radius: 16rpx;
-  --radius-lg: 24rpx;
-  --radius-xl: 32rpx;
+  /* —— 圆角：偏小，更建筑感 —— */
+  --radius-sm: 6rpx;
+  --radius: 12rpx;
+  --radius-lg: 20rpx;
+  --radius-xl: 28rpx;
   --radius-full: 999rpx;
 
-  /* —— 间距 —— */
+  /* —— 间距：更大留白 —— */
   --space-xs: 8rpx;
   --space-sm: 16rpx;
   --space-md: 24rpx;
   --space-lg: 32rpx;
   --space-xl: 48rpx;
 
-  /* —— 阴影 —— */
-  --shadow-sm: 0 2rpx 12rpx rgba(45, 42, 38, 0.04);
-  --shadow: 0 4rpx 24rpx rgba(45, 42, 38, 0.06);
-  --shadow-lg: 0 8rpx 40rpx rgba(45, 42, 38, 0.10);
+  /* —— 阴影：极淡，几乎无感 —— */
+  --shadow-sm: 0 1rpx 3rpx rgba(43, 40, 37, 0.03);
+  --shadow: 0 2rpx 12rpx rgba(43, 40, 37, 0.04);
+  --shadow-lg: 0 6rpx 28rpx rgba(43, 40, 37, 0.07);
 
   /* —— 字体 —— */
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", system-ui, sans-serif;
   font-size: 28rpx;
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -62,9 +64,7 @@ page {
   box-sizing: border-box;
 }
 
-.page-padding {
-  padding: 0 var(--space-lg);
-}
+.page-padding { padding: 0 var(--space-lg); }
 
 .flex { display: flex; }
 .flex-col { display: flex; flex-direction: column; }
@@ -74,12 +74,12 @@ page {
 .flex-1 { flex: 1; min-width: 0; }
 .flex-wrap { flex-wrap: wrap; }
 
-/* —— 文字 —— */
-.text-title { font-size: 40rpx; font-weight: 700; color: var(--color-text); letter-spacing: -0.5rpx; }
-.text-h2 { font-size: 34rpx; font-weight: 600; color: var(--color-text); }
+/* —— 文字层级：weight 600 为主，靠 size+spacing 拉开层次 —— */
+.text-title { font-size: 42rpx; font-weight: 600; color: var(--color-text); letter-spacing: 1rpx; }
+.text-h2 { font-size: 34rpx; font-weight: 600; color: var(--color-text); letter-spacing: 0.5rpx; }
 .text-h3 { font-size: 30rpx; font-weight: 600; color: var(--color-text); }
-.text-body { font-size: 28rpx; color: var(--color-text); }
-.text-body2 { font-size: 26rpx; color: var(--color-text-2); }
+.text-body { font-size: 28rpx; color: var(--color-text); font-weight: 400; }
+.text-body2 { font-size: 26rpx; color: var(--color-text-2); font-weight: 400; }
 .text-caption { font-size: 24rpx; color: var(--color-text-3); }
 .text-small { font-size: 22rpx; color: var(--color-text-3); }
 .text-primary { color: var(--color-primary); }
@@ -89,12 +89,12 @@ page {
 .text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .text-ellipsis-2 { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 
-/* —— 卡片 —— */
+/* —— 卡片：极淡边框 + 几乎无阴影 —— */
 .card {
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  box-shadow: var(--shadow);
+  border: 1rpx solid var(--color-border);
 }
 
 .card-flat {
@@ -103,20 +103,21 @@ page {
   padding: var(--space-lg);
 }
 
-/* —— 按钮 —— */
+/* —— 按钮：精致胶囊形 —— */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 20rpx 40rpx;
+  padding: 22rpx 44rpx;
   border-radius: var(--radius-full);
   font-size: 28rpx;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: 1rpx;
 }
 .btn::after { border: none; }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: scale(0.97); opacity: 0.85; }
 
 .btn-primary {
   background: var(--color-primary);
@@ -127,7 +128,7 @@ page {
 .btn-outline {
   background: transparent;
   color: var(--color-primary);
-  border: 2rpx solid var(--color-primary);
+  border: 1rpx solid var(--color-primary);
 }
 
 .btn-ghost {
@@ -140,22 +141,19 @@ page {
   color: #fff;
 }
 
-.btn-block {
-  width: 100%;
-  display: flex;
-}
-
-.btn-lg { padding: 28rpx 48rpx; font-size: 32rpx; }
+.btn-block { width: 100%; display: flex; }
+.btn-lg { padding: 28rpx 48rpx; font-size: 30rpx; }
 .btn-sm { padding: 12rpx 24rpx; font-size: 24rpx; }
 
-/* —— 标签 —— */
+/* —— 标签：低饱和，内敛 —— */
 .tag {
   display: inline-flex;
   align-items: center;
   padding: 4rpx 16rpx;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   font-size: 22rpx;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
 }
 .tag-warning { background: var(--color-warning-bg); color: var(--color-warning); }
 .tag-danger { background: var(--color-danger-bg); color: var(--color-danger); }
@@ -163,7 +161,7 @@ page {
 .tag-primary { background: var(--color-primary-light); color: var(--color-primary); }
 .tag-default { background: var(--color-fill); color: var(--color-text-2); }
 
-/* —— 输入框 —— */
+/* —— 输入框：底线感，无重边框 —— */
 .input {
   width: 100%;
   padding: 24rpx 28rpx;
@@ -176,51 +174,48 @@ page {
 .input-placeholder { color: var(--color-text-3); }
 
 /* —— 分割线 —— */
-.divider {
-  height: 1rpx;
-  background: var(--color-border);
-}
+.divider { height: 1rpx; background: var(--color-border); }
 
 /* —— 安全区 —— */
 .safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 120rpx); }
 .tabbar-height { height: calc(env(safe-area-inset-bottom) + 100rpx); }
 
-/* —— 动画 —— */
-.fade-in { animation: fadeIn 0.3s ease-out; }
+/* —— 动效：ease-out-quart，克制 —— */
+.fade-in { animation: fadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1); }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10rpx); }
+  from { opacity: 0; transform: translateY(8rpx); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.slide-up { animation: slideUp 0.35s cubic-bezier(0.25, 1, 0.5, 1); }
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
 
-/* —— 悬浮按钮 —— */
+/* —— 悬浮按钮：去掉彩色阴影，更内敛 —— */
 .fab {
   position: fixed;
   right: 40rpx;
   bottom: calc(env(safe-area-inset-bottom) + 140rpx);
-  width: 112rpx;
-  height: 112rpx;
+  width: 104rpx;
+  height: 104rpx;
   border-radius: 50%;
   background: var(--color-primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 56rpx;
-  box-shadow: 0 8rpx 32rpx rgba(192, 98, 62, 0.35);
+  font-size: 52rpx;
+  box-shadow: 0 4rpx 20rpx rgba(124, 106, 88, 0.25);
   z-index: 100;
 }
 .fab:active { transform: scale(0.92); }
 
 /* —— 空状态 —— */
 .empty-illustration {
-  width: 200rpx;
-  height: 200rpx;
+  width: 180rpx;
+  height: 180rpx;
   border-radius: 50%;
   background: var(--color-primary-bg);
   display: flex;
