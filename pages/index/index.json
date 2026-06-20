@@ -2,7 +2,8 @@
   "usingComponents": {
     "empty-state": "/components/empty-state/empty-state",
     "item-card": "/components/item-card/item-card",
-    "space-card": "/components/space-card/space-card"
+    "space-card": "/components/space-card/space-card",
+    "voice-btn": "/components/voice-btn/voice-btn"
   },
   "enablePullDownRefresh": true,
   "backgroundColor": "#FAF6F0"

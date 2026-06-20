@@ -83,7 +83,7 @@
   justify-content: space-between;
   padding: 0 36rpx 16rpx;
 }
-.sort-btn, .manage-btn {
+.sort-btn, .manage-btn, .mode-btn {
   display: flex;
   align-items: center;
   font-size: 26rpx;
@@ -92,6 +92,14 @@
   background: var(--color-card);
   border-radius: var(--radius-full);
   border: 1rpx solid var(--color-border);
+}
+.mode-btn {
+  color: var(--color-primary);
+  border-color: var(--color-primary-light);
+}
+.mode-arrow {
+  margin-left: 6rpx;
+  font-size: 22rpx;
 }
 .sort-arrow {
   margin-left: 6rpx;

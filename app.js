@@ -9,10 +9,25 @@ App({
     categories: [],
     reminderConfig: null,
     systemInfo: null,
-    safeArea: null
+    safeArea: null,
+    cloudReady: false
   },
 
   onLaunch() {
+    // 初始化云开发
+    try {
+      if (wx.cloud) {
+        wx.cloud.init({
+          env: 'cloud1-d7gta4zbtc65130c6',
+          traceUser: true
+        });
+        this.globalData.cloudReady = true;
+      }
+    } catch (e) {
+      console.warn('[app] 云开发初始化失败，语音AI功能将不可用:', e);
+      this.globalData.cloudReady = false;
+    }
+
     // 获取系统信息（安全区域适配）
     try {
       const sysInfo = wx.getWindowInfo();

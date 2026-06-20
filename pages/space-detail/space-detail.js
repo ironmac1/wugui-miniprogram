@@ -23,7 +23,9 @@ Page({
     manageMode: false,
     selectedIds: [],
     showSortPicker: false,
-    canEdit: false
+    canEdit: false,
+    showMode: 'all',     // 展示模式：all / children / items
+    showModeLabel: '全部'
   },
 
   onLoad(options) {
@@ -113,7 +115,7 @@ Page({
       this.toggleSelect(id);
       return;
     }
-    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
+    wx.navigateTo({ url: `/pages/item-edit/item-edit?id=${e.detail.item.item_id}` });
   },
 
   // 消耗物品
@@ -153,6 +155,16 @@ Page({
 
   toggleSortPicker() {
     this.setData({ showSortPicker: !this.data.showSortPicker });
+  },
+
+  // 切换展示模式
+  toggleShowMode() {
+    const modes = ['all', 'children', 'items'];
+    const labels = { all: '全部', children: '仅子空间', items: '仅物品' };
+    const curIdx = modes.indexOf(this.data.showMode);
+    const nextMode = modes[(curIdx + 1) % modes.length];
+    util.vibrate('light');
+    this.setData({ showMode: nextMode, showModeLabel: labels[nextMode] });
   },
 
   chooseSort(e) {

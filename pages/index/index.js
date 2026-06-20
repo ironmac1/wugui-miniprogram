@@ -3,6 +3,8 @@ const app = getApp();
 const store = require('../../utils/store.js');
 const util = require('../../utils/util.js');
 const { SPACE_ICONS } = require('../../utils/constants.js');
+const { getRandomCopy } = require('../../utils/copywriting.js');
+const { parseVoiceText, parseWithAI } = require('../../utils/voiceParser.js');
 
 function getSpaceEmoji(iconId) {
   const icon = SPACE_ICONS.find(i => i.id === iconId);
@@ -25,29 +27,26 @@ Page({
     quickAddSpaceIndex: 0,
     quickAddSpaceName: '',
     spaceNames: {},
-    todayDate: '',
-    totalItems: 0
+    totalItems: 0,
+    dailyCopy: '',
+    voiceAddVisible: false,
+    voiceResult: null
   },
 
   onLoad() {
-    this.loadToday();
+    // 首次进入随机选一条文案
+    this.setData({ dailyCopy: getRandomCopy() });
   },
 
   onShow() {
+    // 每次进入首页随机展示一条文案
+    this.setData({ dailyCopy: getRandomCopy() });
     this.loadData();
   },
 
   onPullDownRefresh() {
     this.loadData();
     wx.stopPullDownRefresh();
-  },
-
-  loadToday() {
-    const days = ['日', '一', '二', '三', '四', '五', '六'];
-    const d = new Date();
-    this.setData({
-      todayDate: `${d.getMonth() + 1}月${d.getDate()}日 星期${days[d.getDay()]}`
-    });
   },
 
   loadData() {
@@ -90,6 +89,7 @@ Page({
 
   // 快速添加
   openQuickAdd() {
+    util.vibrate('light');
     if (this.data.spaces.length === 0) {
       util.toast('请先创建一个空间');
       wx.navigateTo({ url: '/pages/space-edit/space-edit' });
@@ -100,6 +100,122 @@ Page({
 
   closeQuickAdd() {
     this.setData({ quickAddVisible: false });
+  },
+
+  // ============ 语音添加 ============
+  openVoiceAdd() {
+    util.vibrate('light');
+    if (this.data.spaces.length === 0) {
+      util.toast('请先创建一个空间');
+      wx.navigateTo({ url: '/pages/space-edit/space-edit' });
+      return;
+    }
+    this.setData({ voiceAddVisible: true, voiceResult: null });
+  },
+
+  closeVoiceAdd() {
+    this.setData({ voiceAddVisible: false, voiceResult: null });
+  },
+
+  // 语音识别结果
+  async onVoiceResult(e) {
+    const text = e.detail.text;
+    util.vibrate('light');
+    util.loading('AI解析中');
+
+    const spaces = store.getSpaces();
+    const categories = store.getCategories();
+
+    // 优先用 AI 解析，失败自动回退本地规则解析
+    const result = await parseWithAI(text, spaces, categories);
+
+    wx.hideLoading();
+
+    if (!result.success) {
+      util.toast(result.message || '未识别到有效内容');
+      return;
+    }
+
+    // 对每个物品：如果没识别到空间，默认选第一个
+    const items = (result.items || []).map(item => {
+      if (!item.space_id && spaces.length > 0) {
+        item.space_id = spaces[0].space_id;
+        item.spaceName = spaces[0].name;
+        item.spaceAutoFilled = true;
+      }
+      return item;
+    });
+
+    // 提示用户用的是AI还是本地解析
+    if (result.source === 'ai') {
+      console.log('[voice] AI解析成功', items.length, '个物品');
+    } else if (result.aiError) {
+      console.warn('[voice] AI解析失败，已回退本地:', result.aiError);
+    }
+
+    this.setData({ voiceResult: { ...result, items } });
+  },
+
+  onVoiceError(e) {
+    util.toast(e.detail.message || '识别失败');
+  },
+
+  // 重新说
+  retryVoice() {
+    util.vibrate('light');
+    this.setData({ voiceResult: null });
+  },
+
+  // 删除某个识别出的物品
+  removeVoiceItem(e) {
+    util.vibrate('light');
+    const idx = e.currentTarget.dataset.index;
+    const items = [...this.data.voiceResult.items];
+    items.splice(idx, 1);
+    if (items.length === 0) {
+      this.setData({ voiceResult: null });
+    } else {
+      this.setData({ 'voiceResult.items': items });
+    }
+  },
+
+  // 确认语音添加（批量）
+  confirmVoiceAdd() {
+    const r = this.data.voiceResult;
+    if (!r || !r.items || r.items.length === 0) {
+      util.toast('未识别到物品');
+      return;
+    }
+
+    // 校验所有物品都有空间
+    for (const item of r.items) {
+      if (!item.space_id) {
+        util.toast(`「${item.name}」未选择空间`);
+        return;
+      }
+    }
+
+    util.loading('添加中');
+    r.items.forEach(item => {
+      store.addItem({
+        name: item.name,
+        space_id: item.space_id,
+        category: item.category,
+        quantity: item.quantity || 1,
+        brand: item.brand || '',
+        expire_date: item.expire_date || '',
+        purchase_date: util.today(),
+        remark: '语音添加：' + r.rawText
+      });
+    });
+
+    setTimeout(() => {
+      util.hideLoading();
+      util.vibrate('medium');
+      util.toast(`已添加 ${r.items.length} 个物品`, 'success');
+      this.setData({ voiceAddVisible: false, voiceResult: null });
+      this.loadData();
+    }, 500);
   },
 
   onQuickAddName(e) {
@@ -127,6 +243,7 @@ Page({
       quantity: 1
     });
     this.setData({ quickAddVisible: false, quickAddName: '' });
+    util.vibrate('medium');
     util.toast('添加成功', 'success');
     this.loadData();
   },
@@ -134,7 +251,7 @@ Page({
   // 点击临期/过期物品
   onExpiringTap(e) {
     const item = e.detail ? e.detail.item : e.currentTarget.dataset;
-    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${item.item_id}` });
+    wx.navigateTo({ url: `/pages/item-edit/item-edit?id=${item.item_id}` });
   },
 
   // 切换临期/过期/全部 tab
@@ -189,25 +306,30 @@ Page({
 
   // 搜索
   goToSearch() {
+    util.vibrate('light');
     wx.navigateTo({ url: '/pages/search/search' });
   },
 
   // 去空间管理
   goToSpaces() {
+    util.vibrate('light');
     wx.switchTab({ url: '/pages/spaces/spaces' });
   },
 
   // 去全部物品
   goToItems() {
+    util.vibrate('light');
     wx.switchTab({ url: '/pages/items/items' });
   },
 
   // 去临期过期页
   goToExpired() {
+    util.vibrate('light');
     wx.navigateTo({ url: '/pages/expired/expired?type=expiring' });
   },
 
   goCreateSpace() {
+    util.vibrate('light');
     wx.navigateTo({ url: '/pages/space-edit/space-edit' });
   },
 

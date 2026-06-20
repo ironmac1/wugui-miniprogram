@@ -1,0 +1,9 @@
+{
+  "name": "parseVoice",
+  "version": "1.0.0",
+  "description": "语音文本AI语义解析",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

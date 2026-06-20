@@ -7,17 +7,15 @@
     <input class="form-input" placeholder="如：洗洁精、感冒药" value="{{name}}" bindinput="onNameInput" maxlength="50" />
   </view>
 
-  <!-- 所属空间 -->
+  <!-- 所属空间（层级选择） -->
   <view class="form-card">
-    <picker mode="selector" range="{{spaces}}" range-key="name" value="{{spaceIndex}}" bindchange="onSpaceChange">
-      <view class="picker-row">
-        <text class="form-label-inline">所属空间 <text class="required">*</text></text>
-        <view class="picker-value">
-          <text>{{spaces[spaceIndex].name}}</text>
-          <text class="picker-arrow">›</text>
-        </view>
+    <view class="picker-row" bindtap="openSpacePicker">
+      <text class="form-label-inline">所属空间 <text class="required">*</text></text>
+      <view class="picker-value">
+        <text>{{selectedSpacePath || '请选择空间'}}</text>
+        <text class="picker-arrow">›</text>
       </view>
-    </picker>
+    </view>
   </view>
 
   <!-- 分类 -->
@@ -106,4 +104,49 @@
     <button class="btn btn-primary btn-block btn-lg" bindtap="onSave">保存</button>
   </view>
 
+</view>
+
+<!-- 空间层级选择弹窗 -->
+<view wx:if="{{spacePickerVisible}}" class="space-mask" bindtap="closeSpacePicker"></view>
+<view wx:if="{{spacePickerVisible}}" class="space-sheet slide-up">
+  <view class="space-sheet-header">
+    <text class="space-sheet-title">选择空间</text>
+    <text class="space-sheet-close" bindtap="closeSpacePicker">✕</text>
+  </view>
+
+  <!-- 面包屑路径 -->
+  <view wx:if="{{spaceBreadcrumb.length > 0}}" class="space-breadcrumb">
+    <text class="crumb-item" data-id="" bindtap="onBreadcrumbTap">全部</text>
+    <view wx:for="{{spaceBreadcrumb}}" wx:key="space_id" class="crumb-item-wrap">
+      <text class="crumb-sep">/</text>
+      <text class="crumb-item {{item.space_id === currentParentId ? 'active' : ''}}" data-id="{{item.space_id}}" bindtap="onBreadcrumbTap">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 当前层级空间列表 -->
+  <view class="space-list">
+    <view wx:if="{{currentLevelSpaces.length === 0}}" class="space-empty">
+      <text>当前层级没有子空间</text>
+    </view>
+    <view wx:for="{{currentLevelSpaces}}" wx:key="space_id" class="space-item" data-id="{{item.space_id}}" bindtap="onSpaceItemTap">
+      <text class="space-item-icon">{{item.iconEmoji || '🏠'}}</text>
+      <view class="space-item-info">
+        <text class="space-item-name">{{item.name}}</text>
+        <text class="space-item-meta">{{item.child_count > 0 ? item.child_count + '个子空间' : '点击选择此空间'}}</text>
+      </view>
+      <view wx:if="{{item.child_count > 0}}" class="space-item-next">
+        <text class="next-text">下级</text>
+        <text class="next-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 确认选择当前层级 -->
+  <view class="space-confirm-bar">
+    <view class="space-current-path">
+      <text class="path-label">当前选择：</text>
+      <text class="path-value">{{selectedSpacePath || '未选择'}}</text>
+    </view>
+    <button class="btn btn-primary btn-block btn-lg" bindtap="confirmSpaceSelect">确认选择</button>
+  </view>
 </view>

@@ -4,12 +4,10 @@ const util = require('../../utils/util.js');
 
 Page({
   data: {
-    presetCats: [],
-    customCats: [],
-    items: [],
+    allCats: [],       // 所有标签（预设+自定义）统一列表
     showAdd: false,
     newCatName: '',
-    usageMap: {}  // 分类ID → 使用数量
+    usageMap: {}       // 分类ID → 使用数量
   },
 
   onShow() {
@@ -19,8 +17,6 @@ Page({
   loadData() {
     const categories = store.getCategories();
     const items = store.getItems();
-    const presetCats = categories.filter(c => c.is_preset);
-    const customCats = categories.filter(c => !c.is_preset);
 
     // 统计每个分类被多少物品使用
     const usageMap = {};
@@ -28,7 +24,17 @@ Page({
       usageMap[i.category] = (usageMap[i.category] || 0) + 1;
     });
 
-    this.setData({ presetCats, customCats, items, usageMap });
+    // 统一列表：自定义标签排前面，预设标签排后面
+    const customCats = categories.filter(c => !c.is_preset);
+    const presetCats = categories.filter(c => c.is_preset);
+    const allCats = [...customCats, ...presetCats];
+
+    console.log('[tags] categories count:', categories.length);
+    console.log('[tags] custom count:', customCats.length);
+    console.log('[tags] preset count:', presetCats.length);
+    console.log('[tags] allCats:', allCats.map(c => ({ name: c.name, is_preset: c.is_preset })));
+
+    this.setData({ allCats, usageMap });
   },
 
   // 新增标签
@@ -49,12 +55,13 @@ Page({
       return;
     }
     // 检查重名
-    const all = [...this.data.presetCats, ...this.data.customCats];
-    if (all.find(c => c.name === name)) {
+    const categories = store.getCategories();
+    if (categories.find(c => c.name === name)) {
       util.toast('标签名称已存在');
       return;
     }
-    if (this.data.customCats.length >= 20) {
+    const customCount = categories.filter(c => !c.is_preset).length;
+    if (customCount >= 20) {
       util.toast('自定义标签上限20个');
       return;
     }
@@ -64,21 +71,33 @@ Page({
     this.loadData();
   },
 
-  // 删除标签
+  // 删除标签（系统标签和自定义标签都可删除）
   async deleteCat(e) {
-    const cat = e.currentTarget.dataset.cat;
-    const usage = this.data.usageMap[cat.category_id] || 0;
+    const id = e.currentTarget.dataset.id;
+    const name = e.currentTarget.dataset.name;
+    const isPreset = e.currentTarget.dataset.preset;
+    const usage = this.data.usageMap[id] || 0;
 
     if (usage > 0) {
       util.toast(`该标签下有 ${usage} 个物品关联，无法删除`);
       return;
     }
 
-    const ok = await util.confirm(`确认删除标签「${cat.name}」？`);
+    // 系统标签二次确认
+    let ok;
+    if (isPreset) {
+      ok = await util.confirm(`「${name}」是系统预设标签，确认删除？删除后不可恢复`);
+    } else {
+      ok = await util.confirm(`确认删除标签「${name}」？`);
+    }
     if (ok) {
-      store.deleteCategory(cat.category_id);
-      util.toast('已删除', 'success');
-      this.loadData();
+      const success = store.deleteCategory(id);
+      if (success) {
+        util.toast('已删除', 'success');
+        this.loadData();
+      } else {
+        util.toast('删除失败');
+      }
     }
   }
 });

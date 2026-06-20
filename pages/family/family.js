@@ -1,4 +1,4 @@
-// pages/family/family.js — 家庭管理
+// pages/family/family.js — 主空间管理
 const app = getApp();
 const store = require('../../utils/store.js');
 const util = require('../../utils/util.js');
@@ -28,14 +28,14 @@ Page({
     });
   },
 
-  // 修改家庭名称
+  // 修改主空间名称
   editFamilyName() {
     if (!this.data.isAdmin) {
       util.toast('仅管理员可修改');
       return;
     }
     wx.showModal({
-      title: '修改家庭名称',
+      title: '修改主空间名称',
       editable: true,
       content: this.data.family.family_name,
       success: (res) => {
@@ -68,32 +68,32 @@ Page({
   // 分享邀请
   onShareAppMessage() {
     return {
-      title: `邀请你加入「${this.data.family.family_name}」，一起管理家庭物品`,
+      title: `邀请你加入「${this.data.family.family_name}」，一起管理主空间物品`,
       path: `/pages/index/index?invite=${this.data.inviteCode || 'DEMO01'}`
     };
   },
 
-  // 退出家庭
+  // 退出主空间
   async leaveFamily() {
     if (this.data.isAdmin) {
-      util.toast('管理员请使用解散家庭');
+      util.toast('管理员请使用解散主空间');
       return;
     }
-    const ok = await util.confirm('确认退出当前家庭？退出后将无法查看家庭物品');
+    const ok = await util.confirm('确认退出当前主空间？退出后将无法查看主空间物品');
     if (ok) {
       util.toast('功能演示：已退出', 'success');
     }
   },
 
-  // 解散家庭
+  // 解散主空间
   async dissolveFamily() {
     if (!this.data.isAdmin) {
       util.toast('仅管理员可解散');
       return;
     }
-    const ok = await util.confirm('确认解散家庭？所有空间和物品将归属您的个人账户保留', '解散家庭');
+    const ok = await util.confirm('确认解散主空间？所有空间和物品将归属您的个人账户保留', '解散主空间');
     if (!ok) return;
-    const ok2 = await util.confirm('再次确认：家庭成员将被移除', '最终确认');
+    const ok2 = await util.confirm('再次确认：主空间成员将被移除', '最终确认');
     if (!ok2) return;
     util.toast('功能演示：已解散', 'success');
     setTimeout(() => wx.navigateBack(), 1000);

@@ -56,9 +56,18 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.6",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于物品管理"
+    },
+    "scope.record": {
+      "desc": "语音添加物品需要使用麦克风"
     }
   }
 }

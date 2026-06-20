@@ -17,36 +17,26 @@
     </view>
   </view>
 
-  <!-- 预设标签 -->
-  <view class="section-title">预设标签</view>
+  <!-- 统一标签列表 -->
+  <view class="section-title">所有标签（{{allCats.length}}）</view>
   <view class="tag-list">
-    <view wx:for="{{presetCats}}" wx:key="category_id" class="tag-row">
-      <text class="tag-emoji">{{item.icon}}</text>
+    <view wx:for="{{allCats}}" wx:key="category_id" class="tag-row">
+      <text class="tag-emoji">{{item.icon || '🏷️'}}</text>
       <view class="tag-info">
         <text class="tag-name">{{item.name}}</text>
         <text class="tag-usage">{{usageMap[item.category_id] || 0}} 个物品</text>
       </view>
-      <text class="tag-badge">系统</text>
+      <view class="tag-del-btn" catchtap="deleteCat" data-id="{{item.category_id}}" data-name="{{item.name}}" data-preset="{{item.is_preset}}">
+        <text class="tag-del-text">删除</text>
+      </view>
     </view>
   </view>
 
-  <!-- 自定义标签 -->
-  <view class="section-title">自定义标签</view>
-  <view wx:if="{{customCats.length > 0}}" class="tag-list">
-    <view wx:for="{{customCats}}" wx:key="category_id" class="tag-row" data-cat="{{item}}" bindtap="deleteCat">
-      <text class="tag-emoji">🏷️</text>
-      <view class="tag-info">
-        <text class="tag-name">{{item.name}}</text>
-        <text class="tag-usage">{{usageMap[item.category_id] || 0}} 个物品</text>
-      </view>
-      <view class="tag-del">
-        <text class="del-icon">✕</text>
-      </view>
-    </view>
+  <view wx:if="{{allCats.length === 0}}" class="empty-tags">
+    <empty-state icon="🏷️" title="还没有标签" desc="点击右上角新建标签，更好地分类管理物品" />
   </view>
-  <empty-state wx:else icon="🏷️" title="还没有自定义标签" desc="点击右上角新建标签，更好地分类管理物品" />
 
   <view class="hint-text">
-    <text>💡 点击自定义标签可删除，有关联物品的标签无法删除</text>
+    <text>💡 有关联物品的标签无法删除，删除后关联物品将归入"其他"分类</text>
   </view>
 </view>

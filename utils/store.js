@@ -434,7 +434,7 @@ function addCategory(name) {
 function deleteCategory(categoryId) {
   const categories = getCategories();
   const cat = categories.find(c => c.category_id === categoryId);
-  if (!cat || cat.is_preset) return false;
+  if (!cat) return false;
   // 检查是否有物品使用
   const items = getItems();
   const usedCount = items.filter(i => i.category === categoryId).length;

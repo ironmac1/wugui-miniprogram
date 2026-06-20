@@ -46,21 +46,17 @@
 }
 .item-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: 8rpx;
 }
 .item-name {
   font-size: 29rpx;
   font-weight: 600;
   color: var(--color-text);
-  flex-shrink: 0;
-  max-width: 320rpx;
+  flex: 1;
+  min-width: 0;
   margin-right: 12rpx;
   letter-spacing: 0.5rpx;
-}
-.expire-tag {
-  margin-right: 12rpx;
-  flex-shrink: 0;
 }
 .qty-text {
   font-size: 24rpx;
@@ -71,11 +67,26 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14rpx;
 }
 .meta-text {
   font-size: 23rpx;
   color: var(--color-text-3);
+}
+.meta-dot {
+  font-size: 23rpx;
+  color: var(--color-text-3);
+  margin: 0 8rpx;
+}
+/* 过期状态文字：与位置品牌同字号，用颜色区分 */
+.meta-expire {
+  font-size: 23rpx;
+  font-weight: 500;
+}
+.expire-warning {
+  color: #D97706;  /* 橙色 · 即将过期 */
+}
+.expire-danger {
+  color: #DC2626;  /* 红色 · 已过期 */
 }
 
 /* 消耗按钮 */

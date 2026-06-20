@@ -43,7 +43,7 @@
     <view class="manage-action text-danger" bindtap="batchDeleteSpaces">删除({{selectedIds.length}})</view>
   </view>
 
-  <empty-state wx:else icon="🏠" title="还没有空间" desc="创建客厅、厨房、卧室等空间，开始管理家庭物品" btn-text="创建第一个空间" bind:action="goAddSpace" />
+  <empty-state wx:if="{{spaces.length === 0}}" icon="🏠" title="还没有空间" desc="创建客厅、厨房、卧室等空间，开始管理家庭物品" btn-text="创建第一个空间" bind:action="goAddSpace" />
 
   <view class="tabbar-height"></view>
 </view>

@@ -1,0 +1,30 @@
+<!-- components/voice-btn/voice-btn.wxml -->
+<view
+  class="voice-btn {{size}} {{recording ? 'recording' : ''}} {{recognizing ? 'recognizing' : ''}}"
+  bindtap="onTap"
+>
+  <!-- 录音中：波纹动画 -->
+  <view wx:if="{{recording}}" class="voice-wave">
+    <view class="wave-bar"></view>
+    <view class="wave-bar"></view>
+    <view class="wave-bar"></view>
+    <view class="wave-bar"></view>
+    <view class="wave-bar"></view>
+  </view>
+  <!-- 识别中：转圈 -->
+  <view wx:elif="{{recognizing}}" class="voice-loading">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+  </view>
+  <!-- 待机：麦克风图标 -->
+  <view wx:else class="voice-icon">
+    <view class="mic-icon">
+      <view class="mic-body"></view>
+      <view class="mic-base"></view>
+    </view>
+  </view>
+  <text wx:if="{{showText}}" class="voice-text">
+    {{recording ? '点击停止' : (recognizing ? '识别中...' : '点击说话')}}
+  </text>
+</view>

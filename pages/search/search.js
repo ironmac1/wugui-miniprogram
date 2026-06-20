@@ -82,7 +82,7 @@ Page({
   },
 
   onItemTap(e) {
-    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
+    wx.navigateTo({ url: `/pages/item-edit/item-edit?id=${e.detail.item.item_id}` });
   },
 
   clearInput() {

@@ -1,0 +1,193 @@
+/* components/voice-btn/voice-btn.wxss */
+.voice-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx 32rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: #fff;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s, background 0.3s;
+  box-shadow: 0 1rpx 0 rgba(255, 255, 255, 0.2) inset, 0 6rpx 20rpx rgba(120, 140, 93, 0.3);
+  user-select: none;
+}
+.voice-btn:active {
+  transform: scale(0.94);
+  opacity: 0.92;
+}
+
+/* 录音中：变色 + 脉冲 */
+.voice-btn.recording {
+  background: var(--color-danger);
+  box-shadow: 0 1rpx 0 rgba(255, 255, 255, 0.2) inset, 0 6rpx 24rpx rgba(176, 101, 74, 0.4);
+  animation: recordPulse 1.4s ease-in-out infinite;
+}
+@keyframes recordPulse {
+  0%, 100% { box-shadow: 0 1rpx 0 rgba(255, 255, 255, 0.2) inset, 0 6rpx 24rpx rgba(176, 101, 74, 0.4); }
+  50% { box-shadow: 0 1rpx 0 rgba(255, 255, 255, 0.2) inset, 0 6rpx 40rpx rgba(176, 101, 74, 0.55); }
+}
+
+/* 识别中 */
+.voice-btn.recognizing {
+  background: var(--color-text-3);
+  opacity: 0.7;
+}
+
+/* ===== 麦克风图标（CSS绘制） ===== */
+.voice-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mic-icon {
+  position: relative;
+  width: 28rpx;
+  height: 44rpx;
+}
+.mic-body {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18rpx;
+  height: 28rpx;
+  border-radius: 9rpx;
+  background: #fff;
+}
+.mic-body::after {
+  content: '';
+  position: absolute;
+  bottom: -14rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24rpx;
+  height: 12rpx;
+  border: 2rpx solid #fff;
+  border-top: none;
+  border-radius: 0 0 12rpx 12rpx;
+}
+.mic-base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28rpx;
+  height: 3rpx;
+  background: #fff;
+  border-radius: 2rpx;
+}
+
+/* ===== 波纹动画 ===== */
+.voice-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  height: 48rpx;
+}
+.wave-bar {
+  width: 6rpx;
+  height: 16rpx;
+  background: #fff;
+  border-radius: 3rpx;
+  animation: waveAnim 0.9s ease-in-out infinite;
+}
+.wave-bar:nth-child(1) { animation-delay: 0s; }
+.wave-bar:nth-child(2) { animation-delay: 0.12s; }
+.wave-bar:nth-child(3) { animation-delay: 0.24s; }
+.wave-bar:nth-child(4) { animation-delay: 0.36s; }
+.wave-bar:nth-child(5) { animation-delay: 0.48s; }
+@keyframes waveAnim {
+  0%, 100% { height: 12rpx; opacity: 0.6; }
+  50% { height: 36rpx; opacity: 1; }
+}
+
+/* ===== 加载点 ===== */
+.voice-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  height: 48rpx;
+}
+.loading-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #fff;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== 文字 ===== */
+.voice-text {
+  font-size: 24rpx;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+  opacity: 0.95;
+}
+
+/* ===== 尺寸变体 ===== */
+.voice-btn.large {
+  padding: 32rpx 48rpx;
+  gap: 16rpx;
+}
+.voice-btn.large .voice-icon {
+  width: 64rpx;
+  height: 64rpx;
+}
+.voice-btn.large .mic-icon {
+  width: 36rpx;
+  height: 56rpx;
+}
+.voice-btn.large .mic-body {
+  width: 22rpx;
+  height: 36rpx;
+  border-radius: 11rpx;
+}
+.voice-btn.large .mic-body::after {
+  width: 30rpx;
+  height: 16rpx;
+  bottom: -18rpx;
+}
+.voice-btn.large .mic-base {
+  width: 36rpx;
+}
+.voice-btn.large .voice-text {
+  font-size: 28rpx;
+}
+
+.voice-btn.inline {
+  flex-direction: row;
+  padding: 16rpx 28rpx;
+  gap: 12rpx;
+}
+.voice-btn.inline .voice-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+.voice-btn.inline .mic-icon {
+  width: 18rpx;
+  height: 28rpx;
+}
+.voice-btn.inline .mic-body {
+  width: 12rpx;
+  height: 18rpx;
+}
+.voice-btn.inline .mic-body::after {
+  width: 16rpx;
+  height: 8rpx;
+  bottom: -10rpx;
+}
+.voice-btn.inline .voice-text {
+  font-size: 24rpx;
+}

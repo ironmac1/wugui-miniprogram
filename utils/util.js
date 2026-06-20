@@ -94,6 +94,16 @@ function debounce(fn, delay) {
   };
 }
 
+// 安全震动（不阻断后续逻辑）
+function vibrate(type) {
+  try {
+    wx.vibrateShort({
+      type: type || 'light',
+      fail: () => {}
+    });
+  } catch (e) {}
+}
+
 // 显示提示
 function toast(title, icon) {
   wx.showToast({ title, icon: icon || 'none', duration: 2000 });
@@ -144,6 +154,7 @@ module.exports = {
   getSpaceIcon,
   debounce,
   toast,
+  vibrate,
   loading,
   hideLoading,
   confirm,

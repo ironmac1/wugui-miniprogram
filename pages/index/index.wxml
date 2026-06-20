@@ -4,34 +4,33 @@
   <!-- 顶部问候 -->
   <view class="header">
     <view class="header-top">
-      <view>
-        <text class="greeting">你好，{{user.nickname || '微信用户'}}</text>
-        <text class="date-text">{{todayDate}}</text>
+      <view class="greeting-wrap">
+        <text class="daily-copy">{{dailyCopy}}</text>
       </view>
       <view class="search-btn" bindtap="goToSearch">
-        <text class="search-icon">🔍</text>
+        <text class="search-text">搜索</text>
       </view>
     </view>
     <view class="stats-bar">
       <view class="stat-item" bindtap="goToItems">
-        <text class="stat-num">{{totalItems}}</text>
-        <text class="stat-label">物品总数</text>
+        <text class="stat-num num-emerge">{{totalItems}}</text>
+        <text class="stat-label">物品</text>
       </view>
       <view class="stat-divider"></view>
       <view class="stat-item" bindtap="goToSpaces">
-        <text class="stat-num">{{spaces.length}}</text>
-        <text class="stat-label">空间数</text>
+        <text class="stat-num num-emerge" style="animation-delay: 0.25s;">{{spaces.length}}</text>
+        <text class="stat-label">空间</text>
       </view>
       <view class="stat-divider"></view>
       <view class="stat-item" bindtap="goToExpired">
-        <text class="stat-num text-warning">{{expiringItems.length + expiredItems.length}}</text>
+        <text class="stat-num num-emerge" style="animation-delay: 0.35s;">{{expiringItems.length + expiredItems.length}}</text>
         <text class="stat-label">临期</text>
       </view>
     </view>
   </view>
 
   <!-- 临期/过期合并面板 -->
-  <view wx:if="{{expireTabList.length > 0}}" class="panel expire-panel">
+  <view wx:if="{{expiringItems.length > 0 || expiredItems.length > 0}}" class="panel expire-panel stagger-in" style="--stagger-i: 1;">
     <!-- Tab 切换 -->
     <view class="expire-tabs">
       <view class="expire-tab {{expireTab === 'expiring' ? 'active' : ''}}" data-tab="expiring" bindtap="switchExpireTab">
@@ -44,61 +43,52 @@
       </view>
       <view class="expire-tab {{expireTab === 'all' ? 'active' : ''}}" data-tab="all" bindtap="switchExpireTab">
         <text>全部</text>
-        <text wx:if="{{expireTabList.length > 0}}" class="tab-count">{{expireTabList.length}}</text>
+        <text class="tab-count">{{expiringItems.length + expiredItems.length}}</text>
       </view>
     </view>
     <!-- 物品列表 -->
     <view class="panel-body">
-      <item-card
-        wx:for="{{expireTabList}}"
-        wx:key="item_id"
-        item="{{item}}"
-        categories="{{categories}}"
-        advance-days="{{maxAdvanceDays}}"
-        show-space="{{true}}"
-        space-name="{{spaceNames[item.space_id]}}"
-        show-consume="{{true}}"
-        bind:tap="onExpiringTap"
-        bind:consume="onConsumeItem"
-      />
+      <block wx:if="{{expireTabList.length > 0}}">
+        <item-card
+          wx:for="{{expireTabList}}"
+          wx:key="item_id"
+          item="{{item}}"
+          categories="{{categories}}"
+          advance-days="{{maxAdvanceDays}}"
+          show-space="{{true}}"
+          space-name="{{spaceNames[item.space_id]}}"
+          show-consume="{{true}}"
+          bind:tap="onExpiringTap"
+          bind:consume="onConsumeItem"
+        />
+      </block>
+      <view wx:else class="expire-empty-tab">
+        <text wx:if="{{expireTab === 'expiring'}}">暂无临期物品</text>
+        <text wx:elif="{{expireTab === 'expired'}}">暂无已过期物品</text>
+        <text wx:else>暂无物品</text>
+      </view>
       <view class="view-all" bindtap="viewAllExpired">查看全部 ›</view>
     </view>
   </view>
 
   <!-- 无临期过期时的安心提示 -->
-  <view wx:if="{{expiringItems.length === 0 && expiredItems.length === 0}}" class="safe-banner">
+  <view wx:if="{{expiringItems.length === 0 && expiredItems.length === 0}}" class="safe-banner stagger-in" style="--stagger-i: 2;">
     <text class="safe-icon">✓</text>
     <text class="safe-text">暂无临期物品，一切就绪</text>
-  </view>
-
-  <!-- 空间区域 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">我的空间</text>
-      <text class="section-action" bindtap="goToSpaces">管理 ›</text>
-    </view>
-
-    <view wx:if="{{spaces.length > 0}}" class="space-grid">
-      <view wx:for="{{spaces}}" wx:key="space_id" class="space-tile" data-id="{{item.space_id}}" bindtap="onTileTap">
-        <view class="tile-icon">
-          <image wx:if="{{item.photo}}" src="{{item.photo}}" mode="aspectFill" class="tile-photo" />
-          <text wx:else class="tile-emoji">{{item.iconEmoji}}</text>
-        </view>
-        <view class="tile-info">
-          <text class="tile-name text-ellipsis">{{item.name}}</text>
-          <text class="tile-count">{{item.item_count || 0}}件</text>
-        </view>
-        <text class="tile-arrow">›</text>
-      </view>
-    </view>
-
-    <empty-state wx:else icon="🏠" title="还没有空间" desc="创建你的第一个空间，开始管理家庭物品" btn-text="创建空间" bind:action="goCreateSpace" />
   </view>
 
   <view class="tabbar-height"></view>
 
   <!-- 快速添加悬浮按钮 -->
-  <view class="fab" bindtap="openQuickAdd">+</view>
+  <view class="fab-group">
+    <view class="fab fab-voice" bindtap="openVoiceAdd">
+      <view class="mic-mini">
+        <view class="mic-mini-body"></view>
+        <view class="mic-mini-base"></view>
+      </view>
+    </view>
+    <view class="fab" bindtap="openQuickAdd">+</view>
+  </view>
 
   <!-- 快速添加弹窗 -->
   <view wx:if="{{quickAddVisible}}" class="mask" bindtap="closeQuickAdd"></view>
@@ -119,6 +109,75 @@
     </view>
     <view class="qa-hint">后续可在详情页完善信息</view>
     <button class="btn btn-primary btn-block btn-lg" bindtap="doQuickAdd">添加</button>
+  </view>
+
+  <!-- 语音添加弹窗 -->
+  <view wx:if="{{voiceAddVisible}}" class="mask" bindtap="closeVoiceAdd"></view>
+  <view wx:if="{{voiceAddVisible}}" class="voice-sheet slide-up">
+    <view class="qa-header">
+      <text class="qa-title">语音添加物品</text>
+      <text class="qa-close" bindtap="closeVoiceAdd">✕</text>
+    </view>
+
+    <!-- 语音识别区 -->
+    <view wx:if="{{!voiceResult}}" class="voice-area">
+      <voice-btn
+        size="large"
+        show-text="{{true}}"
+        bind:result="onVoiceResult"
+        bind:error="onVoiceError"
+      />
+      <view class="voice-tip">
+        <text>长按按钮说话，例如：</text>
+        <text class="voice-example">"在厨房加一瓶洗洁精，下个月过期"</text>
+      </view>
+    </view>
+
+    <!-- 识别结果预览 -->
+    <view wx:if="{{voiceResult}}" class="voice-result-area">
+      <view class="result-raw">
+        <text class="result-label">识别到 {{voiceResult.items.length}} 个物品：</text>
+        <text class="result-text">{{voiceResult.rawText}}</text>
+      </view>
+
+      <view class="result-items">
+        <view wx:for="{{voiceResult.items}}" wx:key="index" class="result-item-card">
+          <view class="result-item-header">
+            <text class="result-item-index">{{index + 1}}</text>
+            <view class="result-item-body">
+              <view class="result-field">
+                <text class="field-label">名称</text>
+                <text class="field-value {{item.name ? '' : 'empty'}}">{{item.name || '未识别'}}</text>
+              </view>
+              <view class="result-field">
+                <text class="field-label">空间</text>
+                <text class="field-value {{item.spaceName ? '' : 'empty'}}">{{item.spaceName || '未指定'}}</text>
+              </view>
+              <view class="result-field">
+                <text class="field-label">数量</text>
+                <text class="field-value">{{item.quantity}}</text>
+              </view>
+              <view wx:if="{{item.brand}}" class="result-field">
+                <text class="field-label">品牌</text>
+                <text class="field-value">{{item.brand}}</text>
+              </view>
+              <view wx:if="{{item.expire_date}}" class="result-field">
+                <text class="field-label">过期</text>
+                <text class="field-value">{{item.expire_date}}</text>
+              </view>
+            </view>
+            <view class="result-item-del" catchtap="removeVoiceItem" data-index="{{index}}">
+              <text class="result-del-icon">✕</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="result-actions">
+        <button class="btn btn-ghost" bindtap="retryVoice">重新说</button>
+        <button class="btn btn-primary" bindtap="confirmVoiceAdd">确认添加（{{voiceResult.items.length}}）</button>
+      </view>
+    </view>
   </view>
 
 </view>

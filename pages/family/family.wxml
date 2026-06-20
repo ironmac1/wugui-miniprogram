@@ -1,6 +1,6 @@
 <!-- pages/family/family.wxml -->
 <view class="container">
-  <!-- 家庭信息 -->
+  <!-- 主空间信息 -->
   <view class="family-header">
     <view class="family-icon">🏠</view>
     <view class="family-info">
@@ -33,12 +33,12 @@
     </view>
     <view class="perm-row">
       <text class="perm-icon {{isAdmin ? 'check' : 'cross'}}">{{isAdmin ? '✓' : '✗'}}</text>
-      <text class="perm-text">解散家庭</text>
+      <text class="perm-text">解散主空间</text>
     </view>
   </view>
 
   <!-- 成员列表 -->
-  <view class="section-title">家庭成员</view>
+  <view class="section-title">空间成员</view>
   <view class="member-list">
     <view class="member-row">
       <view class="member-avatar">{{user.nickname ? user.nickname[0] : '我'}}</view>
@@ -60,7 +60,7 @@
     </view>
     <view class="action-row danger" bindtap="dissolveFamily">
       <text class="action-icon">⚠️</text>
-      <text class="action-text">解散家庭</text>
+      <text class="action-text">解散主空间</text>
       <text class="action-arrow">›</text>
     </view>
   </view>
@@ -69,13 +69,13 @@
   <view wx:if="{{!isAdmin}}" class="action-list">
     <view class="action-row danger" bindtap="leaveFamily">
       <text class="action-icon">🚪</text>
-      <text class="action-text">退出家庭</text>
+      <text class="action-text">退出主空间</text>
       <text class="action-arrow">›</text>
     </view>
   </view>
 
   <view class="hint-text">
-    <text>💡 提示：当前为本地演示模式，家庭共享功能需接入云端服务后可用。</text>
+    <text>💡 提示：当前为本地演示模式，主空间共享功能需接入云端服务后可用。</text>
   </view>
 
   <view style="height: 80rpx;"></view>
@@ -84,7 +84,7 @@
 <!-- 邀请码弹窗 -->
 <view wx:if="{{showInviteModal}}" class="mask" bindtap="closeInvite"></view>
 <view wx:if="{{showInviteModal}}" class="invite-modal slide-up">
-  <view class="invite-title">邀请家人加入</view>
+  <view class="invite-title">邀请成员加入</view>
   <view class="invite-code-box">
     <text class="invite-code">{{inviteCode}}</text>
   </view>

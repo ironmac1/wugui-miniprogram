@@ -67,11 +67,10 @@
 .tag-row {
   display: flex;
   align-items: center;
-  padding: 24rpx 28rpx;
+  padding: 28rpx 28rpx;
   border-bottom: 1rpx solid var(--color-border);
 }
 .tag-row:last-child { border-bottom: none; }
-.tag-row:active { background: var(--color-fill); }
 
 .tag-emoji {
   font-size: 36rpx;
@@ -94,25 +93,46 @@
   font-size: 22rpx;
   color: var(--color-text-3);
 }
+
+/* 系统标签徽章（保留样式但不再使用，以删除按钮统一替代） */
 .tag-badge {
   font-size: 21rpx;
-  color: var(--color-text-3);
-  background: var(--color-fill);
-  padding: 4rpx 16rpx;
-  border-radius: var(--radius-sm);
-  letter-spacing: 0.5rpx;
+  color: #FFFFFF;
+  background: #ADA59B;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  letter-spacing: 1rpx;
+  flex-shrink: 0;
 }
-.tag-del {
-  width: 56rpx;
-  height: 56rpx;
+
+/* 删除按钮 — 鲜明红色胶囊，确保可见 */
+.tag-del-btn {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  padding: 14rpx 32rpx;
+  background: #B0654A;
+  border-radius: 999rpx;
+  margin-left: 16rpx;
+  min-width: 120rpx;
+  min-height: 60rpx;
+  box-sizing: border-box;
 }
-.del-icon {
-  font-size: 28rpx;
-  color: var(--color-text-3);
+.tag-del-btn:active {
+  background: #9A5538;
+  opacity: 0.85;
+}
+.tag-del-text {
+  font-size: 26rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  line-height: 1;
+}
+
+.empty-tags {
+  margin: 0 36rpx;
 }
 
 .hint-text {

@@ -2,23 +2,13 @@
 const app = getApp();
 const store = require('../../utils/store.js');
 const util = require('../../utils/util.js');
-const { REMIND_DAYS_OPTIONS } = require('../../utils/constants.js');
 
 Page({
   data: {
     user: null,
     family: null,
     config: null,
-    remindOptions: REMIND_DAYS_OPTIONS,
-    totalSpaces: 0,
-    totalItems: 0,
-    expiringCount: 0,
-    expiredCount: 0,
-    version: '1.0.0',
-    // 周汇总
-    weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-    selectedWeekDay: 1,
-    selectedTime: '09:00'
+    version: '1.0.0'
   },
 
   onShow() {
@@ -28,48 +18,26 @@ Page({
   loadData() {
     app.refreshData();
     const user = app.globalData.user;
-    const family = app.globalData.family;
-    const config = store.getReminderConfig();
-    const spaces = store.getSpaces();
-    const items = store.getItems();
-    const maxAdvance = Math.max(...config.advance_days, 7);
+    const family = app.globalData.family || {};
+    const config = store.getReminderConfig() || { advance_days: [7] };
 
     this.setData({
-      user,
+      user: user || { nickname: '微信用户' },
       family,
-      config: util.deepClone(config),
-      totalSpaces: spaces.length,
-      totalItems: items.length,
-      expiringCount: store.getExpiringItems(maxAdvance).length,
-      expiredCount: store.getExpiredItems().length,
-      selectedWeekDay: config.summary_day || 1,
-      selectedTime: config.summary_time || '09:00'
+      config: util.deepClone(config)
     });
   },
 
-  // 提醒开关
-  onReminderToggle(e) {
-    const enabled = e.detail.value;
-    store.updateReminderConfig({ enabled });
-    this.setData({ 'config.enabled': enabled });
-    if (!enabled) {
-      util.toast('已关闭提醒，首页仍会展示临期物品');
-    }
-  },
-
-  // 提前天数
+  // 提前天数（点击已有天数=移除）
   onAdvanceDaysChange(e) {
     const value = Number(e.currentTarget.dataset.value);
     let days = [...this.data.config.advance_days];
     const idx = days.indexOf(value);
     if (idx > -1) {
       days.splice(idx, 1);
-    } else {
-      days.push(value);
-      days.sort((a, b) => b - a);
     }
     if (days.length === 0) {
-      util.toast('至少保留一个提醒时间');
+      util.toast('至少保留一个提醒天数');
       return;
     }
     store.updateReminderConfig({ advance_days: days });
@@ -77,25 +45,34 @@ Page({
     this.setData({ 'config.advance_days': days });
   },
 
-  // 周汇总开关
-  onSummaryToggle(e) {
-    const weekly_summary = e.detail.value;
-    store.updateReminderConfig({ weekly_summary });
-    this.setData({ 'config.weekly_summary': weekly_summary });
-  },
-
-  // 选择周几
-  onWeekDayChange(e) {
-    const day = Number(e.detail.value);
-    store.updateReminderConfig({ summary_day: day });
-    this.setData({ selectedWeekDay: day });
-  },
-
-  // 选择时间
-  onTimeChange(e) {
-    const time = e.detail.value;
-    store.updateReminderConfig({ summary_time: time });
-    this.setData({ selectedTime: time });
+  // 自定义天数
+  onCustomDaysTap() {
+    wx.showModal({
+      title: '添加提醒天数',
+      editable: true,
+      placeholderText: '请输入 1-90 之间的数字',
+      content: '',
+      success: (res) => {
+        if (!res.confirm) return;
+        const input = (res.content || '').trim();
+        const num = parseInt(input);
+        if (!num || num < 1 || num > 90) {
+          util.toast('请输入 1-90 之间的数字');
+          return;
+        }
+        let days = [...this.data.config.advance_days];
+        if (days.includes(num)) {
+          util.toast('该天数已存在');
+          return;
+        }
+        days.push(num);
+        days.sort((a, b) => b - a);
+        store.updateReminderConfig({ advance_days: days });
+        store.refreshAllItemStatus();
+        this.setData({ 'config.advance_days': days });
+        util.toast('已添加', 'success');
+      }
+    });
   },
 
   // 编辑昵称
@@ -115,7 +92,7 @@ Page({
     });
   },
 
-  // 家庭管理
+  // 主空间管理
   goFamily() {
     wx.navigateTo({ url: '/pages/family/family' });
   },

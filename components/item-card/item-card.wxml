@@ -6,14 +6,18 @@
     <text wx:else class="icon-emoji">{{catIcon}}</text>
   </view>
   <view class="item-body">
+    <!-- 第一行：物品名 + 数量 -->
     <view class="item-header">
       <text class="item-name text-ellipsis">{{item.name}}</text>
-      <text wx:if="{{tag}}" class="tag {{tag.class}} expire-tag">{{tag.text}}</text>
       <text wx:if="{{item.quantity > 1}}" class="qty-text">×{{item.quantity}}</text>
     </view>
+    <!-- 第二行：位置 · 品牌 · 过期状态 -->
     <view class="item-meta">
       <text wx:if="{{showSpace && spaceName}}" class="meta-text">{{spaceName}}</text>
+      <text wx:if="{{showSpace && spaceName && item.brand}}" class="meta-dot">·</text>
       <text wx:if="{{item.brand}}" class="meta-text">{{item.brand}}</text>
+      <text wx:if="{{tag && (showSpace && spaceName || item.brand)}}" class="meta-dot">·</text>
+      <text wx:if="{{tag}}" class="meta-text meta-expire {{tag.status === 'expired' ? 'expire-danger' : 'expire-warning'}}">{{tag.text}}</text>
     </view>
   </view>
   <!-- 消耗按钮 -->

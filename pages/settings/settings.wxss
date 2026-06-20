@@ -89,6 +89,10 @@
   border-bottom: 1rpx solid var(--color-border);
 }
 .setting-row:last-child { border-bottom: none; }
+.setting-row-days {
+  border-bottom: none;
+  padding-bottom: 20rpx;
+}
 .setting-tap:active { background: var(--color-fill); }
 .setting-info { flex: 1; }
 .setting-name {
@@ -114,7 +118,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12rpx;
-  padding: 0 28rpx 28rpx;
+  padding: 0 28rpx 32rpx;
 }
 .day-chip {
   padding: 12rpx 28rpx;
@@ -127,6 +131,16 @@
   background: var(--color-primary);
   color: #fff;
   font-weight: 600;
+}
+.custom-chip {
+  background: var(--color-accent-bg);
+  color: var(--color-accent);
+  border: 1rpx dashed var(--color-accent);
+}
+.custom-chip.active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
 }
 
 .summary-config {
