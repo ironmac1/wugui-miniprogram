@@ -24,12 +24,12 @@
   </view>
 
   <!-- 子空间区域 -->
-  <view wx:if="{{childSpaces.length > 0}}" class="child-section">
+  <view class="child-section">
     <view class="child-header">
       <text class="child-title">子空间</text>
-      <view wx:if="{{canEdit}}" class="add-child-btn" bindtap="goAddChildSpace">+ 添加</view>
+      <view class="add-child-btn" bindtap="goAddChildSpace">+ 添加子空间</view>
     </view>
-    <view class="child-list">
+    <view wx:if="{{childSpaces.length > 0}}" class="child-list">
       <view wx:for="{{childSpaces}}" wx:key="space_id" class="child-tile" data-id="{{item.space_id}}" bindtap="onChildSpaceTap">
         <view class="child-icon">
           <image wx:if="{{item.photo}}" src="{{item.photo}}" mode="aspectFill" class="child-photo" />

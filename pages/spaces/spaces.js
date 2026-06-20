@@ -102,6 +102,11 @@ Page({
     wx.navigateTo({ url: '/pages/space-edit/space-edit' });
   },
 
+  addChildSpace(e) {
+    const parentId = e.currentTarget.dataset.id;
+    wx.navigateTo({ url: `/pages/space-edit/space-edit?parent_id=${parentId}` });
+  },
+
   toggleManage() {
     this.setData({ manageMode: !this.data.manageMode, selectedIds: [] });
   },
