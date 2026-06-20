@@ -120,6 +120,36 @@ Page({
     this.setData({ selectedIds: ids });
   },
 
+  // 批量删除空间
+  async batchDeleteSpaces() {
+    if (this.data.selectedIds.length === 0) {
+      util.toast('请先选择空间');
+      return;
+    }
+    // 逐个检查
+    for (const id of this.data.selectedIds) {
+      const children = store.getChildSpaces(id);
+      if (children.length > 0) {
+        const space = this.data.spaces.find(s => s.space_id === id);
+        util.toast(`「${space.name}」下有子空间，请先删除子空间`);
+        return;
+      }
+      const items = store.getItemsBySpace(id);
+      if (items.length > 0) {
+        const space = this.data.spaces.find(s => s.space_id === id);
+        util.toast(`「${space.name}」下有${items.length}个物品，请先处理物品`);
+        return;
+      }
+    }
+    const ok = await util.confirm(`确认删除选中的 ${this.data.selectedIds.length} 个空间？此操作不可撤销`);
+    if (ok) {
+      this.data.selectedIds.forEach(id => store.deleteSpace(id));
+      util.toast('删除成功', 'success');
+      this.setData({ manageMode: false, selectedIds: [] });
+      this.loadData();
+    }
+  },
+
   onShareAppMessage() {
     return { title: '物归 — 家庭物品管理', path: '/pages/index/index' };
   }

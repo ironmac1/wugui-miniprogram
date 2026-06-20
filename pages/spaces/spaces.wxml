@@ -37,6 +37,12 @@
     </view>
   </view>
 
+  <!-- 管理模式底部操作栏 -->
+  <view wx:if="{{manageMode}}" class="manage-bar">
+    <view class="manage-action" bindtap="toggleManage">取消</view>
+    <view class="manage-action text-danger" bindtap="batchDeleteSpaces">删除({{selectedIds.length}})</view>
+  </view>
+
   <empty-state wx:else icon="🏠" title="还没有空间" desc="创建客厅、厨房、卧室等空间，开始管理家庭物品" btn-text="创建第一个空间" bind:action="goAddSpace" />
 
   <view class="tabbar-height"></view>
