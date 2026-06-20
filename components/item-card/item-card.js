@@ -1,5 +1,5 @@
 // components/item-card/item-card.js
-const { getStatusTag, getCategoryIcon, daysFromToday } = require('../../utils/util.js');
+const { getStatusTag, getCategoryIcon } = require('../../utils/util.js');
 
 Component({
   properties: {
@@ -7,7 +7,8 @@ Component({
     categories: { type: Array, value: [] },
     advanceDays: { type: Number, value: 7 },
     showSpace: { type: Boolean, value: false },
-    spaceName: { type: String, value: '' }
+    spaceName: { type: String, value: '' },
+    showConsume: { type: Boolean, value: false }
   },
   data: {
     tag: null,
@@ -27,6 +28,9 @@ Component({
     },
     onLongPress() {
       this.triggerEvent('longpress', { item: this.data.item });
+    },
+    onConsume() {
+      this.triggerEvent('consume', { item: this.data.item });
     }
   }
 });

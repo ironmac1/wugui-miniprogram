@@ -21,7 +21,8 @@
       <view class="space-card-flex">
         <view class="space-card" catchtap="onSpaceTap" data-id="{{item.space_id}}" bindlongpress="onSpaceLongPress" data-space="{{item}}">
           <view class="space-icon-circle">
-            <text class="space-emoji">{{item.iconEmoji || '🏠'}}</text>
+            <image wx:if="{{item.photo}}" src="{{item.photo}}" mode="aspectFill" class="space-photo" />
+            <text wx:else class="space-emoji">{{item.iconEmoji || '🏠'}}</text>
           </view>
           <view class="space-info">
             <text class="space-name text-ellipsis">{{item.name}}</text>

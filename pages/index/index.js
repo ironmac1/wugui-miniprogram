@@ -12,13 +12,13 @@ function getSpaceEmoji(iconId) {
 Page({
   data: {
     user: null,
-    expiringItems: [],   // 临期物品
-    expiredItems: [],    // 已过期物品
+    expiringItems: [],
+    expiredItems: [],
+    expireTabList: [],   // 当前 tab 展示的列表
+    expireTab: 'all',    // expiring / expired / all
     spaces: [],
     categories: [],
     maxAdvanceDays: 7,
-    showExpiringPanel: true,
-    showExpiredPanel: true,
     quickAddVisible: false,
     quickAddName: '',
     quickAddSpaceId: '',
@@ -63,11 +63,12 @@ Page({
     const expiringItems = store.getExpiringItems(maxAdvance);
     const expiredItems = store.getExpiredItems();
 
-    // 空间名映射 + 图标 emoji
+    // 合并列表，按紧急程度排序（已过期的在最前，然后按天数升序）
+    const allExpireItems = [...expiredItems, ...expiringItems].slice(0, 10);
+
     const spaceNames = {};
     spaces.forEach(s => { spaceNames[s.space_id] = s.name; });
 
-    // 给 spaces 加上 emoji 用于首页展示
     const spacesWithEmoji = spaces.map(s => ({ ...s, iconEmoji: getSpaceEmoji(s.icon) }));
 
     this.setData({
@@ -76,8 +77,9 @@ Page({
       spaces: spacesWithEmoji.slice(0, 6),
       categories,
       maxAdvanceDays: maxAdvance,
-      expiringItems: expiringItems.slice(0, 5),
-      expiredItems: expiredItems.slice(0, 5),
+      expiringItems,
+      expiredItems,
+      expireTabList: allExpireItems,
       spaceNames,
       totalItems: items.length,
       quickAddSpaceId: spaces.length > 0 ? spaces[0].space_id : '',
@@ -131,11 +133,42 @@ Page({
 
   // 点击临期/过期物品
   onExpiringTap(e) {
-    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
+    const item = e.detail ? e.detail.item : e.currentTarget.dataset;
+    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${item.item_id}` });
   },
 
-  onExpiredTap(e) {
-    wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
+  // 切换临期/过期/全部 tab
+  switchExpireTab(e) {
+    const tab = e.currentTarget.dataset.tab;
+    let list = [];
+    if (tab === 'expiring') list = this.data.expiringItems;
+    else if (tab === 'expired') list = this.data.expiredItems;
+    else list = [...this.data.expiredItems, ...this.data.expiringItems];
+    this.setData({ expireTab: tab, expireTabList: list });
+  },
+
+  // 消耗物品（减1）
+  onConsumeItem(e) {
+    const item = e.detail.item;
+    if (item.quantity <= 1) {
+      // 数量为1时消耗等于删除
+      wx.showModal({
+        title: '提示',
+        content: `「${item.name}」数量为1，消耗后将被删除，确认？`,
+        confirmColor: '#7C6A58',
+        success: (res) => {
+          if (res.confirm) {
+            store.deleteItem(item.item_id);
+            util.toast('已消耗', 'success');
+            this.loadData();
+          }
+        }
+      });
+    } else {
+      store.updateItem(item.item_id, { quantity: item.quantity - 1 });
+      util.toast('已消耗1个', 'success');
+      this.loadData();
+    }
   },
 
   // 点击空间
@@ -149,22 +182,9 @@ Page({
     wx.navigateTo({ url: `/pages/space-detail/space-detail?id=${id}` });
   },
 
-  // 查看全部临期/过期
-  viewAllExpiring() {
-    wx.navigateTo({ url: '/pages/expired/expired?type=expiring' });
-  },
-
+  // 查看全部
   viewAllExpired() {
-    wx.navigateTo({ url: '/pages/expired/expired?type=expired' });
-  },
-
-  // 折叠面板
-  toggleExpiring() {
-    this.setData({ showExpiringPanel: !this.data.showExpiringPanel });
-  },
-
-  toggleExpired() {
-    this.setData({ showExpiredPanel: !this.data.showExpiredPanel });
+    wx.navigateTo({ url: '/pages/expired/expired?type=expiring' });
   },
 
   // 搜索

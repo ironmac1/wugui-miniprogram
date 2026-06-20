@@ -84,6 +84,11 @@
   margin-right: 24rpx;
 }
 .space-emoji { font-size: 40rpx; }
+.space-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+}
 
 .space-info {
   flex: 1;

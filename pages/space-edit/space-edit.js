@@ -1,4 +1,4 @@
-// pages/space-edit/space-edit.js — 空间新增/编辑（支持父空间）
+// pages/space-edit/space-edit.js — 空间新增/编辑（支持父空间+图片）
 const store = require('../../utils/store.js');
 const util = require('../../utils/util.js');
 const { SPACE_ICONS } = require('../../utils/constants.js');
@@ -11,13 +11,13 @@ Page({
     parentName: '',
     name: '',
     icon: 'icon_other',
+    photo: '',           // 空间图片
     icons: SPACE_ICONS,
     selectedIndex: 0
   },
 
   onLoad(options) {
     if (options.id) {
-      // 编辑模式
       const space = store.getSpace(options.id);
       if (space) {
         const idx = SPACE_ICONS.findIndex(i => i.id === space.icon);
@@ -29,17 +29,14 @@ Page({
           parentName: parent ? parent.name : '',
           name: space.name,
           icon: space.icon,
+          photo: space.photo || '',
           selectedIndex: idx > -1 ? idx : SPACE_ICONS.length - 1
         });
         wx.setNavigationBarTitle({ title: '编辑空间' });
       }
     } else if (options.parent_id) {
-      // 新建子空间
       const parent = store.getSpace(options.parent_id);
-      this.setData({
-        parentId: options.parent_id,
-        parentName: parent ? parent.name : ''
-      });
+      this.setData({ parentId: options.parent_id, parentName: parent ? parent.name : '' });
       wx.setNavigationBarTitle({ title: '新建子空间' });
     } else {
       wx.setNavigationBarTitle({ title: '新建空间' });
@@ -57,20 +54,34 @@ Page({
 
   onIconChoose(e) {
     const idx = e.currentTarget.dataset.index;
-    this.setData({
-      selectedIndex: idx,
-      icon: this.data.icons[idx].id
+    this.setData({ selectedIndex: idx, icon: this.data.icons[idx].id, photo: '' });
+  },
+
+  // 上传空间图片
+  choosePhoto() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      sizeType: ['compressed'],
+      success: (res) => {
+        this.setData({ photo: res.tempFiles[0].tempFilePath });
+      }
     });
+  },
+
+  removePhoto() {
+    this.setData({ photo: '' });
+  },
+
+  previewPhoto() {
+    if (this.data.photo) wx.previewImage({ urls: [this.data.photo] });
   },
 
   async onSave() {
     const name = this.data.name.trim();
-    if (!name) {
-      util.toast('请输入空间名称');
-      return;
-    }
+    if (!name) { util.toast('请输入空间名称'); return; }
 
-    // 检查重名
     const spaces = store.getSpaces();
     const dup = spaces.find(s => s.name === name && s.space_id !== this.data.spaceId);
     if (dup) {
@@ -78,17 +89,18 @@ Page({
       if (!ok) return;
     }
 
-    // 检查上限
     if (!this.data.isEdit && spaces.length >= 50) {
       util.toast('空间数量已达上限');
       return;
     }
 
+    const saveData = { name, icon: this.data.icon, parent_id: this.data.parentId, photo: this.data.photo };
+
     if (this.data.isEdit) {
-      store.updateSpace(this.data.spaceId, { name, icon: this.data.icon, parent_id: this.data.parentId });
+      store.updateSpace(this.data.spaceId, saveData);
       util.toast('保存成功', 'success');
     } else {
-      store.addSpace({ name, icon: this.data.icon, parent_id: this.data.parentId });
+      store.addSpace(saveData);
       util.toast('创建成功', 'success');
     }
     setTimeout(() => wx.navigateBack(), 800);

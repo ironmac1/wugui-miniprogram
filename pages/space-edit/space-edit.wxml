@@ -1,6 +1,6 @@
 <!-- pages/space-edit/space-edit.wxml -->
 <view class="container">
-  <!-- 父空间信息（只读显示） -->
+  <!-- 父空间信息 -->
   <view wx:if="{{parentName}}" class="form-section">
     <view class="form-label">所属空间</view>
     <view class="parent-display">
@@ -15,10 +15,25 @@
     <view class="char-count">{{name.length}}/20</view>
   </view>
 
+  <!-- 空间图片 -->
   <view class="form-section">
-    <view class="form-label">空间图标</view>
+    <view class="form-label">空间图片 <text class="form-label-sub">（可选，上传后优先展示）</text></view>
+    <view class="photo-upload-area">
+      <view wx:if="{{photo}}" class="photo-preview" bindtap="previewPhoto">
+        <image src="{{photo}}" mode="aspectFill" class="photo-img" />
+        <view class="photo-del" catchtap="removePhoto">✕</view>
+      </view>
+      <view wx:else class="photo-add" bindtap="choosePhoto">
+        <text class="add-icon">📷</text>
+        <text class="add-text">上传图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-section">
+    <view class="form-label">空间图标 <text class="form-label-sub">（无图片时展示）</text></view>
     <view class="icon-grid">
-      <view wx:for="{{icons}}" wx:key="id" class="icon-item {{selectedIndex === index ? 'active' : ''}}" data-index="{{index}}" bindtap="onIconChoose">
+      <view wx:for="{{icons}}" wx:key="id" class="icon-item {{selectedIndex === index && !photo ? 'active' : ''}}" data-index="{{index}}" bindtap="onIconChoose">
         <text class="icon-emoji">{{item.emoji}}</text>
         <text class="icon-name">{{item.name}}</text>
       </view>

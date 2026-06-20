@@ -39,16 +39,18 @@ Page({
   },
 
   onSpaceTap(e) {
+    const id = e.currentTarget.dataset.id;
     if (this.data.manageMode) {
-      this.toggleSelect(e.detail.space.space_id);
+      this.toggleSelect(id);
       return;
     }
-    wx.navigateTo({ url: `/pages/space-detail/space-detail?id=${e.detail.space.space_id}` });
+    wx.navigateTo({ url: `/pages/space-detail/space-detail?id=${id}` });
   },
 
   onSpaceLongPress(e) {
-    const space = e.detail.space;
-    this.showSpaceActions(space);
+    const id = e.currentTarget.dataset.id;
+    const space = this.data.spaces.find(s => s.space_id === id);
+    if (space) this.showSpaceActions(space);
   },
 
   showSpaceActions(space) {

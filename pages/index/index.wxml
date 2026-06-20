@@ -30,51 +30,36 @@
     </view>
   </view>
 
-  <!-- 临期面板 -->
-  <view wx:if="{{expiringItems.length > 0}}" class="panel expiring-panel">
-    <view class="panel-header" bindtap="toggleExpiring">
-      <view class="panel-title-wrap">
-        <view class="panel-dot dot-warning"></view>
-        <text class="panel-title">即将过期</text>
-        <text class="panel-count">{{expiringItems.length}}</text>
+  <!-- 临期/过期合并面板 -->
+  <view wx:if="{{expireTabList.length > 0}}" class="panel expire-panel">
+    <!-- Tab 切换 -->
+    <view class="expire-tabs">
+      <view class="expire-tab {{expireTab === 'expiring' ? 'active' : ''}}" data-tab="expiring" bindtap="switchExpireTab">
+        <text>临期</text>
+        <text wx:if="{{expiringItems.length > 0}}" class="tab-count">{{expiringItems.length}}</text>
       </view>
-      <text class="panel-action {{showExpiringPanel ? '' : 'collapsed'}}">查看全部 ›</text>
+      <view class="expire-tab {{expireTab === 'expired' ? 'active' : ''}}" data-tab="expired" bindtap="switchExpireTab">
+        <text>已过期</text>
+        <text wx:if="{{expiredItems.length > 0}}" class="tab-count danger">{{expiredItems.length}}</text>
+      </view>
+      <view class="expire-tab {{expireTab === 'all' ? 'active' : ''}}" data-tab="all" bindtap="switchExpireTab">
+        <text>全部</text>
+        <text wx:if="{{expireTabList.length > 0}}" class="tab-count">{{expireTabList.length}}</text>
+      </view>
     </view>
-    <view wx:if="{{showExpiringPanel}}" class="panel-body">
+    <!-- 物品列表 -->
+    <view class="panel-body">
       <item-card
-        wx:for="{{expiringItems}}"
+        wx:for="{{expireTabList}}"
         wx:key="item_id"
         item="{{item}}"
         categories="{{categories}}"
         advance-days="{{maxAdvanceDays}}"
         show-space="{{true}}"
         space-name="{{spaceNames[item.space_id]}}"
+        show-consume="{{true}}"
         bind:tap="onExpiringTap"
-      />
-      <view class="view-all" bindtap="viewAllExpiring">查看全部 ›</view>
-    </view>
-  </view>
-
-  <!-- 已过期面板 -->
-  <view wx:if="{{expiredItems.length > 0}}" class="panel expired-panel">
-    <view class="panel-header" bindtap="toggleExpired">
-      <view class="panel-title-wrap">
-        <view class="panel-dot dot-danger"></view>
-        <text class="panel-title">已过期</text>
-        <text class="panel-count">{{expiredItems.length}}</text>
-      </view>
-      <text class="panel-action {{showExpiredPanel ? '' : 'collapsed'}}">查看全部 ›</text>
-    </view>
-    <view wx:if="{{showExpiredPanel}}" class="panel-body">
-      <item-card
-        wx:for="{{expiredItems}}"
-        wx:key="item_id"
-        item="{{item}}"
-        categories="{{categories}}"
-        advance-days="{{maxAdvanceDays}}"
-        show-space="{{true}}"
-        space-name="{{spaceNames[item.space_id]}}"
-        bind:tap="onExpiredTap"
+        bind:consume="onConsumeItem"
       />
       <view class="view-all" bindtap="viewAllExpired">查看全部 ›</view>
     </view>
@@ -96,7 +81,8 @@
     <view wx:if="{{spaces.length > 0}}" class="space-grid">
       <view wx:for="{{spaces}}" wx:key="space_id" class="space-tile" data-id="{{item.space_id}}" bindtap="onTileTap">
         <view class="tile-icon">
-          <text class="tile-emoji">{{item.iconEmoji}}</text>
+          <image wx:if="{{item.photo}}" src="{{item.photo}}" mode="aspectFill" class="tile-photo" />
+          <text wx:else class="tile-emoji">{{item.iconEmoji}}</text>
         </view>
         <view class="tile-info">
           <text class="tile-name text-ellipsis">{{item.name}}</text>

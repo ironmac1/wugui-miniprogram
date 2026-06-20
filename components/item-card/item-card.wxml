@@ -1,7 +1,9 @@
 <!-- components/item-card/item-card.wxml -->
 <view class="item-card {{item.status === 'expired' ? 'is-expired' : ''}}" bindtap="onTap" bindlongpress="onLongPress">
+  <!-- 图标：有照片展示照片，否则展示分类emoji -->
   <view class="item-icon">
-    <text class="icon-emoji">{{catIcon}}</text>
+    <image wx:if="{{item.photos && item.photos.length > 0}}" src="{{item.photos[0].url || item.photos[0]}}" mode="aspectFill" class="item-photo" />
+    <text wx:else class="icon-emoji">{{catIcon}}</text>
   </view>
   <view class="item-body">
     <view class="item-header">
@@ -9,10 +11,11 @@
       <text wx:if="{{tag}}" class="tag {{tag.class}}">{{tag.text}}</text>
     </view>
     <view class="item-meta">
-      <text wx:if="{{showSpace && spaceName}}" class="meta-text">📍 {{spaceName}}</text>
+      <text wx:if="{{showSpace && spaceName}}" class="meta-text">{{spaceName}}</text>
       <text wx:if="{{item.brand}}" class="meta-text">{{item.brand}}</text>
       <text wx:if="{{item.quantity > 1}}" class="meta-text">×{{item.quantity}}</text>
-      <text wx:if="{{item.expire_date}}" class="meta-text {{item.status === 'expired' ? 'text-danger' : (item.status === 'expiring_soon' ? 'text-warning' : '')}}">📅 {{item.expire_date}}</text>
     </view>
   </view>
+  <!-- 消耗按钮 -->
+  <view wx:if="{{showConsume}}" class="consume-btn" catchtap="onConsume">−1</view>
 </view>
