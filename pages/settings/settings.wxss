@@ -129,6 +129,17 @@
   font-weight: 600;
 }
 
+.summary-config {
+  margin-top: 8rpx;
+  padding-top: 8rpx;
+  border-top: 1rpx solid var(--color-border);
+}
+.picker-value {
+  font-size: 28rpx;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
 .footer-text {
   text-align: center;
   font-size: 24rpx;

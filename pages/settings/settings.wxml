@@ -48,9 +48,28 @@
       </view>
       <switch checked="{{config.weekly_summary}}" color="#7C6A58" bindchange="onSummaryToggle" />
     </view>
+
+    <view wx:if="{{config.weekly_summary}}" class="summary-config fade-in">
+      <view class="setting-row">
+        <view class="setting-info">
+          <text class="setting-name">推送时间</text>
+        </view>
+        <picker mode="time" value="{{selectedTime}}" bindchange="onTimeChange">
+          <view class="picker-value">{{selectedTime}}</view>
+        </picker>
+      </view>
+      <view class="setting-row">
+        <view class="setting-info">
+          <text class="setting-name">推送日期</text>
+        </view>
+        <picker mode="selector" range="{{weekDays}}" value="{{selectedWeekDay}}" bindchange="onWeekDayChange">
+          <view class="picker-value">{{weekDays[selectedWeekDay]}}</view>
+        </picker>
+      </view>
+    </view>
   </view>
 
-  <!-- 家庭与标签 -->
+  <!-- 管理入口 -->
   <view class="section-title">管理</view>
   <view class="settings-group">
     <view class="setting-row setting-tap" bindtap="goFamily">

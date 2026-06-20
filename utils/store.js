@@ -181,6 +181,7 @@ function addSpace(data) {
     family_id: 'fam_default',
     name: data.name,
     icon: data.icon || 'icon_other',
+    photo: data.photo || '',
     parent_id: data.parent_id || '',
     creator_id: user ? user.user_id : '',
     item_count: 0,

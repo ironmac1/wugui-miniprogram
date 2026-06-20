@@ -69,7 +69,7 @@
         <text wx:if="{{selectedIds.indexOf(item.item_id) > -1}}">✓</text>
       </view>
       <view class="item-flex">
-        <item-card item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" bind:tap="onItemTap" />
+        <item-card item="{{item}}" categories="{{categories}}" advance-days="{{maxAdvanceDays}}" show-consume="{{!manageMode}}" bind:tap="onItemTap" bind:consume="onConsumeItem" />
       </view>
     </view>
   </view>

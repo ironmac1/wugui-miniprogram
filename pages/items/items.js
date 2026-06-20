@@ -11,8 +11,8 @@ Page({
     spaces: [],
     spaceNames: {},
     maxAdvanceDays: 7,
-    sortBy: 'created_desc',
-    sortLabel: '最近添加',
+    sortBy: 'expire',
+    sortLabel: '按过期临期',
     filterSpace: '',      // 空间筛选
     filterCategory: '',   // 分类筛选
     filterExpire: '',     // 过期状态筛选: '' / expiring / expired / none
@@ -21,9 +21,9 @@ Page({
     manageMode: false,
     selectedIds: [],
     sortOptions: [
+      { value: 'expire', label: '按过期临期' },
       { value: 'created_desc', label: '最近添加' },
-      { value: 'name', label: '按名称' },
-      { value: 'expire', label: '按过期日期' }
+      { value: 'name', label: '按名称' }
     ]
   },
 
@@ -89,14 +89,23 @@ Page({
 
   sortItems(items, sortBy) {
     const arr = [...items];
+    const maxAdv = this.data.maxAdvanceDays || 7;
     switch (sortBy) {
       case 'name':
         return arr.sort((a, b) => a.name.localeCompare(b.name, 'zh'));
       case 'expire':
+        // 已过期排最前，然后临期按日期升序，最后无过期日期的
         return arr.sort((a, b) => {
-          if (!a.expire_date) return 1;
-          if (!b.expire_date) return -1;
-          return a.expire_date.localeCompare(b.expire_date);
+          const sa = util.getItemStatus(a, maxAdv);
+          const sb = util.getItemStatus(b, maxAdv);
+          // 已过期最优先
+          if (sa === 'expired' && sb !== 'expired') return -1;
+          if (sb === 'expired' && sa !== 'expired') return 1;
+          // 都有过期日期，按日期升序
+          if (a.expire_date && b.expire_date) return a.expire_date.localeCompare(b.expire_date);
+          if (a.expire_date && !b.expire_date) return -1;
+          if (!a.expire_date && b.expire_date) return 1;
+          return 0;
         });
       default:
         return arr.sort((a, b) => b.created_at.localeCompare(a.created_at));
@@ -109,6 +118,29 @@ Page({
       return;
     }
     wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
+  },
+
+  // 消耗物品
+  onConsumeItem(e) {
+    const item = e.detail.item;
+    if (item.quantity <= 1) {
+      wx.showModal({
+        title: '提示',
+        content: `「${item.name}」数量为1，消耗后将被删除，确认？`,
+        confirmColor: '#7C6A58',
+        success: (res) => {
+          if (res.confirm) {
+            store.deleteItem(item.item_id);
+            util.toast('已消耗', 'success');
+            this.loadData();
+          }
+        }
+      });
+    } else {
+      store.updateItem(item.item_id, { quantity: item.quantity - 1 });
+      util.toast('已消耗1个', 'success');
+      this.loadData();
+    }
   },
 
   // 排序

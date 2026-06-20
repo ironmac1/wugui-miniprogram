@@ -33,9 +33,6 @@
           </view>
           <text class="space-arrow">›</text>
         </view>
-        <view class="space-actions">
-          <view class="add-child-btn-sm" catchtap="addChildSpace" data-id="{{item.space_id}}">+ 子空间</view>
-        </view>
       </view>
     </view>
   </view>

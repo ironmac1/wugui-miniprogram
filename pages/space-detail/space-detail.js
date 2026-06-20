@@ -116,6 +116,29 @@ Page({
     wx.navigateTo({ url: `/pages/item-detail/item-detail?id=${e.detail.item.item_id}` });
   },
 
+  // 消耗物品
+  onConsumeItem(e) {
+    const item = e.detail.item;
+    if (item.quantity <= 1) {
+      wx.showModal({
+        title: '提示',
+        content: `「${item.name}」数量为1，消耗后将被删除，确认？`,
+        confirmColor: '#7C6A58',
+        success: (res) => {
+          if (res.confirm) {
+            store.deleteItem(item.item_id);
+            util.toast('已消耗', 'success');
+            this.loadData();
+          }
+        }
+      });
+    } else {
+      store.updateItem(item.item_id, { quantity: item.quantity - 1 });
+      util.toast('已消耗1个', 'success');
+      this.loadData();
+    }
+  },
+
   goAddItem() {
     wx.navigateTo({ url: `/pages/item-edit/item-edit?space_id=${this.spaceId}` });
   },

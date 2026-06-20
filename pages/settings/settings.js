@@ -14,7 +14,11 @@ Page({
     totalItems: 0,
     expiringCount: 0,
     expiredCount: 0,
-    version: '1.0.0'
+    version: '1.0.0',
+    // 周汇总
+    weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+    selectedWeekDay: 1,
+    selectedTime: '09:00'
   },
 
   onShow() {
@@ -33,11 +37,13 @@ Page({
     this.setData({
       user,
       family,
-      config,
+      config: util.deepClone(config),
       totalSpaces: spaces.length,
       totalItems: items.length,
       expiringCount: store.getExpiringItems(maxAdvance).length,
-      expiredCount: store.getExpiredItems().length
+      expiredCount: store.getExpiredItems().length,
+      selectedWeekDay: config.summary_day || 1,
+      selectedTime: config.summary_time || '09:00'
     });
   },
 
@@ -76,6 +82,20 @@ Page({
     const weekly_summary = e.detail.value;
     store.updateReminderConfig({ weekly_summary });
     this.setData({ 'config.weekly_summary': weekly_summary });
+  },
+
+  // 选择周几
+  onWeekDayChange(e) {
+    const day = Number(e.detail.value);
+    store.updateReminderConfig({ summary_day: day });
+    this.setData({ selectedWeekDay: day });
+  },
+
+  // 选择时间
+  onTimeChange(e) {
+    const time = e.detail.value;
+    store.updateReminderConfig({ summary_time: time });
+    this.setData({ selectedTime: time });
   },
 
   // 编辑昵称
@@ -118,7 +138,6 @@ Page({
     wx.removeStorageSync('wugui_categories');
     wx.removeStorageSync('wugui_reminder');
     wx.removeStorageSync('wugui_counter');
-    // 重新初始化全局数据
     app.initData();
     util.toast('已清空', 'success');
     setTimeout(() => {
