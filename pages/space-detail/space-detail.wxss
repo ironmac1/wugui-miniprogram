@@ -1,4 +1,30 @@
 /* pages/space-detail/space-detail.wxss */
+
+/* 面包屑 */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16rpx 36rpx 0;
+}
+.crumb-item {
+  display: flex;
+  align-items: center;
+}
+.crumb-sep {
+  font-size: 24rpx;
+  color: var(--color-text-3);
+  margin: 0 8rpx;
+}
+.crumb-name {
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+.crumb-name.current {
+  color: var(--color-text-2);
+  font-weight: 600;
+}
+
 .space-header {
   display: flex;
   align-items: center;
@@ -124,4 +150,87 @@
   font-size: 28rpx;
   font-weight: 500;
   color: var(--color-text);
+}
+
+/* 子空间区域 */
+.child-section {
+  margin: 20rpx 36rpx 0;
+}
+.child-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.child-title {
+  font-size: 29rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.5rpx;
+}
+.add-child-btn {
+  font-size: 25rpx;
+  color: var(--color-primary);
+  padding: 8rpx 20rpx;
+  border: 1rpx solid var(--color-primary);
+  border-radius: var(--radius-full);
+}
+.child-list {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
+  overflow: hidden;
+}
+.child-tile {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 28rpx;
+  border-bottom: 1rpx solid var(--color-border);
+}
+.child-tile:last-child { border-bottom: none; }
+.child-tile:active { background: var(--color-fill); }
+.child-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius);
+  background: var(--color-primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.child-info {
+  flex: 1;
+  min-width: 0;
+}
+.child-name {
+  font-size: 29rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 4rpx;
+  letter-spacing: 0.5rpx;
+}
+.child-meta {
+  font-size: 22rpx;
+  color: var(--color-text-3);
+}
+.child-arrow {
+  font-size: 32rpx;
+  color: var(--color-text-3);
+  flex-shrink: 0;
+  margin-left: 12rpx;
+}
+
+/* 空状态 */
+.empty-area {
+  padding: 40rpx 0;
+}
+.empty-tip {
+  text-align: center;
+  font-size: 25rpx;
+  color: var(--color-text-3);
+  padding: 40rpx 0;
 }

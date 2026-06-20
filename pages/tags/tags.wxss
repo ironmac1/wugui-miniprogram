@@ -1,0 +1,128 @@
+/* pages/tags/tags.wxss */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 36rpx 20rpx;
+}
+.page-title {
+  font-size: 42rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 1rpx;
+}
+.add-btn {
+  display: flex;
+  align-items: center;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14rpx 28rpx;
+  border-radius: var(--radius-full);
+  font-size: 26rpx;
+  font-weight: 500;
+  letter-spacing: 0.5rpx;
+}
+.add-btn:active { opacity: 0.85; }
+.add-icon {
+  font-size: 32rpx;
+  margin-right: 6rpx;
+  line-height: 1;
+}
+
+.add-row {
+  margin: 0 36rpx 16rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 28rpx;
+  border: 1rpx solid var(--color-border);
+}
+.add-input {
+  background: var(--color-fill);
+  border-radius: var(--radius);
+  padding: 24rpx 28rpx;
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
+.add-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+}
+
+.section-title {
+  font-size: 27rpx;
+  font-weight: 600;
+  color: var(--color-text-3);
+  margin: 32rpx 36rpx 12rpx;
+  letter-spacing: 0.5rpx;
+}
+
+.tag-list {
+  margin: 0 36rpx;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--color-border);
+  overflow: hidden;
+}
+.tag-row {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 28rpx;
+  border-bottom: 1rpx solid var(--color-border);
+}
+.tag-row:last-child { border-bottom: none; }
+.tag-row:active { background: var(--color-fill); }
+
+.tag-emoji {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.tag-info {
+  flex: 1;
+  min-width: 0;
+}
+.tag-name {
+  font-size: 29rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 4rpx;
+  letter-spacing: 0.5rpx;
+}
+.tag-usage {
+  font-size: 22rpx;
+  color: var(--color-text-3);
+}
+.tag-badge {
+  font-size: 21rpx;
+  color: var(--color-text-3);
+  background: var(--color-fill);
+  padding: 4rpx 16rpx;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5rpx;
+}
+.tag-del {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.del-icon {
+  font-size: 28rpx;
+  color: var(--color-text-3);
+}
+
+.hint-text {
+  margin: 32rpx 36rpx;
+  padding: 24rpx;
+  background: var(--color-primary-bg);
+  border-radius: var(--radius);
+}
+.hint-text text {
+  font-size: 23rpx;
+  color: var(--color-text-2);
+  line-height: 1.6;
+}

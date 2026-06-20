@@ -10,7 +10,8 @@
     "pages/search/search",
     "pages/expired/expired",
     "pages/settings/settings",
-    "pages/family/family"
+    "pages/family/family",
+    "pages/tags/tags"
   ],
   "window": {
     "backgroundColor": "#F5F2ED",

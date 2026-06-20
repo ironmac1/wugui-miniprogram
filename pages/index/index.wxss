@@ -48,7 +48,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: opacity 0.15s;
 }
+.stat-item:active { opacity: 0.6; }
 .stat-num {
   font-size: 42rpx;
   font-weight: 600;

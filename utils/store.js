@@ -85,10 +85,16 @@ function seedDemoData(userId) {
     return `${y}-${m}-${dd}`;
   };
 
+  const kitchenId = genId('space');
+  const livingId = genId('space');
+  const fridgeId = genId('space');
+  const cabinetId = genId('space');
+
   const spaces = [
-    { space_id: genId('space'), family_id: 'fam_default', name: '厨房', icon: 'icon_kitchen', creator_id: userId, item_count: 3, created_at: now, updated_at: now },
-    { space_id: genId('space'), family_id: 'fam_default', name: '客厅', icon: 'icon_living', creator_id: userId, item_count: 2, created_at: now, updated_at: now },
-    { space_id: genId('space'), family_id: 'fam_default', name: '冰箱', icon: 'icon_fridge', creator_id: userId, item_count: 2, created_at: now, updated_at: now }
+    { space_id: kitchenId, family_id: 'fam_default', name: '厨房', icon: 'icon_kitchen', parent_id: '', creator_id: userId, item_count: 2, created_at: now, updated_at: now },
+    { space_id: livingId, family_id: 'fam_default', name: '客厅', icon: 'icon_living', parent_id: '', creator_id: userId, item_count: 2, created_at: now, updated_at: now },
+    { space_id: fridgeId, family_id: 'fam_default', name: '冰箱', icon: 'icon_fridge', parent_id: kitchenId, creator_id: userId, item_count: 2, created_at: now, updated_at: now },
+    { space_id: cabinetId, family_id: 'fam_default', name: '橱柜', icon: 'icon_storage', parent_id: kitchenId, creator_id: userId, item_count: 1, created_at: now, updated_at: now }
   ];
 
   const futureDate = (days) => {
@@ -98,13 +104,13 @@ function seedDemoData(userId) {
   };
 
   const items = [
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[0].space_id, name: '洗洁精', category: 'cat_daily', quantity: 1, purchase_date: dateStr(new Date(today.getTime() - 30 * 86400000)), expire_date: '', brand: '立白', price: 12.9, remark: '放在水槽下方', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[0].space_id, name: '生抽', category: 'cat_food', quantity: 1, purchase_date: dateStr(new Date(today.getTime() - 15 * 86400000)), expire_date: futureDate(180), brand: '海天', price: 15.5, remark: '', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[0].space_id, name: '感冒灵颗粒', category: 'cat_medicine', quantity: 2, purchase_date: dateStr(new Date(today.getTime() - 60 * 86400000)), expire_date: futureDate(5), brand: '999', price: 18.0, remark: '备用药', photos: [], status: 'expiring_soon', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[1].space_id, name: '遥控器电池', category: 'cat_electronics', quantity: 4, purchase_date: dateStr(new Date(today.getTime() - 90 * 86400000)), expire_date: '', brand: '南孚', price: 9.9, remark: 'AA 五号', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[1].space_id, name: '护照', category: 'cat_document', quantity: 1, purchase_date: '', expire_date: '', brand: '', price: 0, remark: '有效期至2030年', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[2].space_id, name: '牛奶', category: 'cat_food', quantity: 1, purchase_date: dateStr(today), expire_date: futureDate(-1), brand: '蒙牛', price: 6.5, remark: '250ml', photos: [], status: 'expired', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
-    { item_id: genId('item'), family_id: 'fam_default', space_id: spaces[2].space_id, name: '酸奶', category: 'cat_food', quantity: 6, purchase_date: dateStr(today), expire_date: futureDate(3), brand: '光明', price: 15.9, remark: '整排', photos: [], status: 'expiring_soon', handle_type: '', creator_id: userId, created_at: now, updated_at: now }
+    { item_id: genId('item'), family_id: 'fam_default', space_id: kitchenId, name: '洗洁精', category: 'cat_daily', quantity: 1, purchase_date: dateStr(new Date(today.getTime() - 30 * 86400000)), expire_date: '', brand: '立白', price: 12.9, remark: '放在水槽下方', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: kitchenId, name: '生抽', category: 'cat_food', quantity: 1, purchase_date: dateStr(new Date(today.getTime() - 15 * 86400000)), expire_date: futureDate(180), brand: '海天', price: 15.5, remark: '', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: cabinetId, name: '感冒灵颗粒', category: 'cat_medicine', quantity: 2, purchase_date: dateStr(new Date(today.getTime() - 60 * 86400000)), expire_date: futureDate(5), brand: '999', price: 18.0, remark: '备用药', photos: [], status: 'expiring_soon', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: livingId, name: '遥控器电池', category: 'cat_electronics', quantity: 4, purchase_date: dateStr(new Date(today.getTime() - 90 * 86400000)), expire_date: '', brand: '南孚', price: 9.9, remark: 'AA 五号', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: livingId, name: '护照', category: 'cat_document', quantity: 1, purchase_date: '', expire_date: '', brand: '', price: 0, remark: '有效期至2030年', photos: [], status: 'normal', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: fridgeId, name: '牛奶', category: 'cat_food', quantity: 1, purchase_date: dateStr(today), expire_date: futureDate(-1), brand: '蒙牛', price: 6.5, remark: '250ml', photos: [], status: 'expired', handle_type: '', creator_id: userId, created_at: now, updated_at: now },
+    { item_id: genId('item'), family_id: 'fam_default', space_id: fridgeId, name: '酸奶', category: 'cat_food', quantity: 6, purchase_date: dateStr(today), expire_date: futureDate(3), brand: '光明', price: 15.9, remark: '整排', photos: [], status: 'expiring_soon', handle_type: '', creator_id: userId, created_at: now, updated_at: now }
   ];
 
   write(STORAGE_KEYS.SPACES, spaces);
@@ -175,6 +181,7 @@ function addSpace(data) {
     family_id: 'fam_default',
     name: data.name,
     icon: data.icon || 'icon_other',
+    parent_id: data.parent_id || '',
     creator_id: user ? user.user_id : '',
     item_count: 0,
     created_at: now,
@@ -195,15 +202,52 @@ function updateSpace(spaceId, updates) {
 }
 
 function deleteSpace(spaceId) {
+  // 校验空间下是否有子空间
+  const allSpaces = getSpaces();
+  const childSpaces = allSpaces.filter(s => s.parent_id === spaceId);
+  if (childSpaces.length > 0) {
+    return { success: false, reason: 'has_children', count: childSpaces.length };
+  }
   // 校验空间下是否有物品
   const items = getItems();
   const spaceItems = items.filter(i => i.space_id === spaceId);
   if (spaceItems.length > 0) {
     return { success: false, reason: 'has_items', count: spaceItems.length };
   }
-  const spaces = getSpaces().filter(s => s.space_id !== spaceId);
+  const spaces = allSpaces.filter(s => s.space_id !== spaceId);
   write(STORAGE_KEYS.SPACES, spaces);
   return { success: true };
+}
+
+// 获取顶级空间（parent_id 为空）
+function getRootSpaces() {
+  return getSpaces().filter(s => !s.parent_id);
+}
+
+// 获取子空间
+function getChildSpaces(parentId) {
+  return getSpaces().filter(s => s.parent_id === parentId);
+}
+
+// 获取空间层级路径（面包屑）
+function getSpacePath(spaceId) {
+  const path = [];
+  let current = getSpace(spaceId);
+  while (current) {
+    path.unshift(current);
+    current = current.parent_id ? getSpace(current.parent_id) : null;
+  }
+  return path;
+}
+
+// 获取空间及其所有后代空间ID（递归）
+function getDescendantSpaceIds(spaceId) {
+  const result = [spaceId];
+  const children = getChildSpaces(spaceId);
+  children.forEach(child => {
+    result.push(...getDescendantSpaceIds(child.space_id));
+  });
+  return result;
 }
 
 // 更新空间物品计数
@@ -439,6 +483,10 @@ module.exports = {
   updateSpace,
   deleteSpace,
   syncSpaceItemCount,
+  getRootSpaces,
+  getChildSpaces,
+  getSpacePath,
+  getDescendantSpaceIds,
   // 物品
   getItems,
   getItem,

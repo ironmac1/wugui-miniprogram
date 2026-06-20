@@ -1,5 +1,13 @@
 <!-- pages/space-detail/space-detail.wxml -->
 <view class="container">
+  <!-- 面包屑 -->
+  <view class="breadcrumb">
+    <view wx:for="{{breadcrumb}}" wx:key="space_id" class="crumb-item">
+      <text wx:if="{{index > 0}}" class="crumb-sep">/</text>
+      <text class="crumb-name {{item.space_id === space.space_id ? 'current' : ''}}" data-id="{{item.space_id}}" bindtap="onBreadcrumbTap">{{item.name}}</text>
+    </view>
+  </view>
+
   <!-- 空间信息头 -->
   <view class="space-header">
     <view class="space-header-left">
@@ -8,10 +16,30 @@
       </view>
       <view>
         <text class="space-header-name">{{space.name}}</text>
-        <text class="space-header-count">{{items.length}} 件物品</text>
+        <text class="space-header-count">{{items.length}} 件物品{{childSpaces.length > 0 ? ' · ' + childSpaces.length + ' 个子空间' : ''}}</text>
       </view>
     </view>
     <view wx:if="{{canEdit}}" class="edit-btn" bindtap="goEditSpace">编辑</view>
+  </view>
+
+  <!-- 子空间区域 -->
+  <view wx:if="{{childSpaces.length > 0}}" class="child-section">
+    <view class="child-header">
+      <text class="child-title">子空间</text>
+      <view wx:if="{{canEdit}}" class="add-child-btn" bindtap="goAddChildSpace">+ 添加</view>
+    </view>
+    <view class="child-list">
+      <view wx:for="{{childSpaces}}" wx:key="space_id" class="child-tile" data-id="{{item.space_id}}" bindtap="onChildSpaceTap">
+        <view class="child-icon">
+          <text>{{item.iconEmoji}}</text>
+        </view>
+        <view class="child-info">
+          <text class="child-name text-ellipsis">{{item.name}}</text>
+          <text class="child-meta">{{item.item_count || 0}}件{{item.child_count > 0 ? ' · ' + item.child_count + '个子空间' : ''}}</text>
+        </view>
+        <text class="child-arrow">›</text>
+      </view>
+    </view>
   </view>
 
   <!-- 操作栏 -->
@@ -44,7 +72,13 @@
     </view>
   </view>
 
-  <empty-state wx:else icon="📦" title="该空间暂无物品" desc="点击下方按钮添加物品" btn-text="添加物品" bind:action="goAddItem" />
+  <view wx:if="{{items.length === 0 && childSpaces.length === 0}}" class="empty-area">
+    <empty-state icon="📦" title="该空间暂无物品" desc="点击下方按钮添加物品或子空间" btn-text="添加物品" bind:action="goAddItem" />
+  </view>
+
+  <view wx:if="{{items.length === 0 && childSpaces.length > 0}}" class="empty-area">
+    <view class="empty-tip">该空间暂无直接物品，物品在子空间中</view>
+  </view>
 
   <!-- 管理模式操作栏 -->
   <view wx:if="{{manageMode}}" class="manage-bar">

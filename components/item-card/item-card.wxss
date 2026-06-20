@@ -1,7 +1,14 @@
 /* components/item-card/item-card.wxss */
+:host {
+  display: block;
+  width: 100%;
+}
+
 .item-card {
   display: flex;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--color-card);
   border-radius: var(--radius-lg);
   padding: 24rpx;

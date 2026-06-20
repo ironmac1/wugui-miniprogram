@@ -1,4 +1,9 @@
 /* components/space-card/space-card.wxss */
+:host {
+  display: block;
+  width: 100%;
+}
+
 .space-card {
   display: flex;
   align-items: center;

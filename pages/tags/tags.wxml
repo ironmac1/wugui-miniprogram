@@ -1,0 +1,52 @@
+<!-- pages/tags/tags.wxml -->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">标签管理</text>
+    <view class="add-btn" bindtap="toggleAdd">
+      <text class="add-icon">+</text>
+      <text>新建</text>
+    </view>
+  </view>
+
+  <!-- 新增标签输入 -->
+  <view wx:if="{{showAdd}}" class="add-row fade-in">
+    <input class="add-input" placeholder="输入标签名称（最多10字）" value="{{newCatName}}" bindinput="onNewCatInput" focus="{{showAdd}}" maxlength="10" confirm-type="done" bindconfirm="doAddCat" />
+    <view class="add-actions">
+      <view class="btn btn-ghost btn-sm" bindtap="toggleAdd">取消</view>
+      <view class="btn btn-primary btn-sm" bindtap="doAddCat">添加</view>
+    </view>
+  </view>
+
+  <!-- 预设标签 -->
+  <view class="section-title">预设标签</view>
+  <view class="tag-list">
+    <view wx:for="{{presetCats}}" wx:key="category_id" class="tag-row">
+      <text class="tag-emoji">{{item.icon}}</text>
+      <view class="tag-info">
+        <text class="tag-name">{{item.name}}</text>
+        <text class="tag-usage">{{usageMap[item.category_id] || 0}} 个物品</text>
+      </view>
+      <text class="tag-badge">系统</text>
+    </view>
+  </view>
+
+  <!-- 自定义标签 -->
+  <view class="section-title">自定义标签</view>
+  <view wx:if="{{customCats.length > 0}}" class="tag-list">
+    <view wx:for="{{customCats}}" wx:key="category_id" class="tag-row" data-cat="{{item}}" bindtap="deleteCat">
+      <text class="tag-emoji">🏷️</text>
+      <view class="tag-info">
+        <text class="tag-name">{{item.name}}</text>
+        <text class="tag-usage">{{usageMap[item.category_id] || 0}} 个物品</text>
+      </view>
+      <view class="tag-del">
+        <text class="del-icon">✕</text>
+      </view>
+    </view>
+  </view>
+  <empty-state wx:else icon="🏷️" title="还没有自定义标签" desc="点击右上角新建标签，更好地分类管理物品" />
+
+  <view class="hint-text">
+    <text>💡 点击自定义标签可删除，有关联物品的标签无法删除</text>
+  </view>
+</view>

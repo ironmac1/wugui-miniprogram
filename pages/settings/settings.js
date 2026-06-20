@@ -100,6 +100,11 @@ Page({
     wx.navigateTo({ url: '/pages/family/family' });
   },
 
+  // 标签管理
+  goTags() {
+    wx.navigateTo({ url: '/pages/tags/tags' });
+  },
+
   // 清空数据
   async clearData() {
     const ok = await util.confirm('确认清空所有数据？此操作不可恢复！', '危险操作');

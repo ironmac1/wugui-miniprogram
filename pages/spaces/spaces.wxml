@@ -15,10 +15,24 @@
 
   <view wx:if="{{spaces.length > 0}}" class="space-list">
     <view wx:for="{{spaces}}" wx:key="space_id" class="space-item-wrap {{manageMode && selectedIds.indexOf(item.space_id) > -1 ? 'selected' : ''}}">
-      <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.space_id) > -1 ? 'checked' : ''}}" bindtap="toggleSelect" data-id="{{item.space_id}}">
+      <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.space_id) > -1 ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.space_id}}">
         <text wx:if="{{selectedIds.indexOf(item.space_id) > -1}}">✓</text>
       </view>
-      <space-card space="{{item}}" bind:tap="onSpaceTap" bind:longpress="onSpaceLongPress" />
+      <view class="space-card-flex">
+        <view class="space-card" catchtap="onSpaceTap" data-id="{{item.space_id}}" bindlongpress="onSpaceLongPress" data-space="{{item}}">
+          <view class="space-icon-circle">
+            <text class="space-emoji">{{item.iconEmoji || '🏠'}}</text>
+          </view>
+          <view class="space-info">
+            <text class="space-name text-ellipsis">{{item.name}}</text>
+            <view class="space-meta">
+              <text class="space-count">{{item.item_count || 0}} 件物品</text>
+              <text wx:if="{{item.child_count > 0}}" class="space-child-count">{{item.child_count}} 个子空间</text>
+            </view>
+          </view>
+          <text class="space-arrow">›</text>
+        </view>
+      </view>
     </view>
   </view>
 

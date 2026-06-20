@@ -177,6 +177,16 @@ Page({
     wx.switchTab({ url: '/pages/spaces/spaces' });
   },
 
+  // 去全部物品
+  goToItems() {
+    wx.switchTab({ url: '/pages/items/items' });
+  },
+
+  // 去临期过期页
+  goToExpired() {
+    wx.navigateTo({ url: '/pages/expired/expired?type=expiring' });
+  },
+
   goCreateSpace() {
     wx.navigateTo({ url: '/pages/space-edit/space-edit' });
   },

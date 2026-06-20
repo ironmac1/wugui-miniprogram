@@ -65,3 +65,23 @@
 .form-footer {
   padding: 48rpx 36rpx;
 }
+
+.parent-display {
+  display: flex;
+  align-items: center;
+  background: var(--color-fill);
+  border-radius: var(--radius);
+  padding: 24rpx 28rpx;
+}
+.parent-name {
+  font-size: 30rpx;
+  color: var(--color-text);
+  flex: 1;
+}
+.parent-tag {
+  font-size: 22rpx;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 4rpx 16rpx;
+  border-radius: var(--radius-sm);
+}
