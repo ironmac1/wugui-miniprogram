@@ -14,9 +14,9 @@
   </view>
 
   <view wx:if="{{spaces.length > 0}}" class="space-list">
-    <view wx:for="{{spaces}}" wx:key="space_id" class="space-item-wrap {{manageMode && selectedIds.indexOf(item.space_id) > -1 ? 'selected' : ''}}">
-      <view wx:if="{{manageMode}}" class="check-circle {{selectedIds.indexOf(item.space_id) > -1 ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.space_id}}">
-        <text wx:if="{{selectedIds.indexOf(item.space_id) > -1}}">✓</text>
+    <view wx:for="{{spaces}}" wx:key="space_id" class="space-item-wrap {{item.selected ? 'selected' : ''}}">
+      <view wx:if="{{manageMode}}" class="check-circle {{item.selected ? 'checked' : ''}}" catchtap="toggleSelect" data-id="{{item.space_id}}">
+        <text wx:if="{{item.selected}}">✓</text>
       </view>
       <view class="space-card-flex">
         <view class="space-card" catchtap="onSpaceTap" data-id="{{item.space_id}}" bindlongpress="onSpaceLongPress" data-space="{{item}}">

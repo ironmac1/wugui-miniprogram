@@ -30,10 +30,10 @@ Page({
     app.refreshData();
     const spaces = store.getRootSpaces();
     const items = store.getItems();
-    // 给每个空间加上子空间数量和图标
     spaces.forEach(s => {
       s.child_count = store.getChildSpaces(s.space_id).length;
       s.iconEmoji = getSpaceEmoji(s.icon);
+      s.selected = false;
     });
     this.setData({ spaces, items, manageMode: false, selectedIds: [] });
   },
@@ -113,11 +113,12 @@ Page({
 
   toggleSelect(e) {
     const id = typeof e === 'string' ? e : (e.currentTarget.dataset.id || e);
-    const ids = [...this.data.selectedIds];
-    const idx = ids.indexOf(id);
-    if (idx > -1) ids.splice(idx, 1);
-    else ids.push(id);
-    this.setData({ selectedIds: ids });
+    const spaces = this.data.spaces.map(s => {
+      if (s.space_id === id) s.selected = !s.selected;
+      return s;
+    });
+    const selectedIds = spaces.filter(s => s.selected).map(s => s.space_id);
+    this.setData({ spaces, selectedIds });
   },
 
   // 批量删除空间
